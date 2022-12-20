@@ -3,7 +3,7 @@ import Head from "next/head";
 
 import "../styles/globals.css";
 
-const prefix = process.env.NODE_ENV === "production" ? "/astroquirks-front" : "";
+const prefix = process.env["NODE_ENV"] === "production" ? "/astroquirks-front" : "";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
