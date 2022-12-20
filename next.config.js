@@ -4,10 +4,6 @@ const isProd = process.env.NODE_ENV === "production";
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  output: "standalone",
-  experimental: {
-    appDir: true,
-  },
 
   // build config
   assetPrefix: isProd ? "/astroquirks-front/" : "",
