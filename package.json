@@ -10,7 +10,7 @@
     "prettier": "prettier --write .",
     "prettier:check": "prettier --check .",
     "typecheck": "tsc --noEmit",
-    "ci": "pnpm lint && pnpm typecheck && pnpm prettier:check && pnpm build"
+    "ci": "pnpm lint && pnpm typecheck && pnpm prettier:check"
   },
   "dependencies": {
     "lodash": "^4.17.21",

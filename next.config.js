@@ -1,3 +1,5 @@
+const isProd = process.env.NODE_ENV === "production";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -5,6 +7,12 @@ const nextConfig = {
   output: "standalone",
   experimental: {
     appDir: true,
+  },
+
+  // build config
+  assetPrefix: isProd ? "/astroquirks-front/" : "",
+  images: {
+    unoptimized: true,
   },
 };
 
