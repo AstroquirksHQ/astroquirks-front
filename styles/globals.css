@@ -4,6 +4,7 @@
 
 html,
 body {
+  @apply bg-blue-1 text-orange-1;
 }
 
 img {
