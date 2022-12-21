@@ -4,7 +4,9 @@
 
 html,
 body {
-  @apply bg-blue-1 text-orange-1;
+  @apply bg-gradient-to-b from-blue-1 to-blue-3 text-blue-2 font-display;
+  padding-bottom: 60px;
+  min-height: 200vh;
 }
 
 img {

@@ -6,10 +6,14 @@ const nextConfig = {
   swcMinify: true,
 
   // build config
-  assetPrefix: isProd ? "/astroquirks-front/" : "",
-  images: {
-    unoptimized: true,
-  },
+  ...(isProd
+    ? {
+        assetPrefix: "/astroquirks-front/",
+        images: {
+          unoptimized: true,
+        },
+      }
+    : {}),
 };
 
 module.exports = nextConfig;
