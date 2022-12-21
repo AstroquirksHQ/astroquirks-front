@@ -1,11 +1,13 @@
 import Image from "next/image";
 
+const prefix = process.env["NODE_ENV"] === "production" ? "/astroquirks-front" : "";
+
 export default function Home() {
   return (
     <div>
       <div className="p-8 flex justify-between items-start">
         <div className="flex items-center space-x-4">
-          <Image src="/img/logo.png" alt="logo" width={30} height={30} />
+          <Image src={`${prefix}/img/logo.png`} alt="logo" width={30} height={30} />
           <div className="uppercase text-blue-2 tracking-widest select-none">
             {"Astro"}
             <span className="font-semibold">{"quirks"}</span>
@@ -20,7 +22,13 @@ export default function Home() {
       </div>
       <div className="flex items-center justify-center">
         <div className="bg-[#111] border border-blue-2 border-opacity-50 rounded-lg shadow-lg border-dashed bg-opacity-70 text-[#fff] text-xl p-4">
-          <Image className="inline mr-2" src="/img/bell.svg" alt="bell" width={24} height={24} />
+          <Image
+            className="inline mr-2"
+            src={`${prefix}/img/bell.svg`}
+            alt="bell"
+            width={24}
+            height={24}
+          />
           <span>{"Next airdrop: "}</span>
           <span className="font-alt text-2xl">{"4 days 3 hours 2 minutes 37 seconds"}</span>
         </div>
@@ -50,7 +58,7 @@ export default function Home() {
               {"CARING"}
               <div className="absolute -top-[10px] -left-[10px] h-[50px] w-[50px] animate-orbit">
                 <Image
-                  src="/img/heart.svg"
+                  src={`${prefix}/img/heart.svg`}
                   className="animate-orbit-reverse xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] w-[20px] h-[20px]"
                   alt="heart"
                   width={40}
@@ -82,13 +90,13 @@ export default function Home() {
           {/* eslint-disable-next-line */}
           <img
             className="absolute bottom-full w-full opacity-20"
-            src="/img/wave.svg"
+            src={`${prefix}/img/wave.svg`}
             alt="landing"
           />
           {/* eslint-disable-next-line */}
           <img
             className="absolute top-full w-full opacity-20"
-            src="/img/wave-2.svg"
+            src={`${prefix}/img/wave-2.svg`}
             alt="landing"
           />
         </div>
@@ -103,7 +111,7 @@ export default function Home() {
             lg:w-[550px]
             xl:w-auto
           `}
-          src="/img/landing.png"
+          src={`${prefix}/img/landing.png`}
           alt="landing"
           width={778}
           height={794}
