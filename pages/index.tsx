@@ -56,10 +56,10 @@ export default function Home() {
             <span className="text-blue-2">{"is "}</span>
             <span className="text-orange-1 z-10 relative">
               {"CARING"}
-              <div className="absolute -top-[10px] -left-[10px] h-[50px] w-[50px] animate-orbit">
+              <div className="absolute -top-[5px] -right-[25px] h-[25px] w-[25px] lg:h-[30px] lg:w-[30px] xl:h-[50px] xl:w-[50px] animate-orbit">
                 <Image
                   src={`${prefix}/img/heart.svg`}
-                  className="animate-orbit-reverse xl:w-[40px] xl:h-[40px] lg:w-[30px] lg:h-[30px] w-[20px] h-[20px]"
+                  className="animate-orbit-reverse              h-[20px] w-[20px] lg:w-[25px] lg:h-[25px] xl:w-[40px] xl:h-[40px] absolute"
                   alt="heart"
                   width={40}
                   height={40}
@@ -70,13 +70,13 @@ export default function Home() {
           </div>
           <div
             className={`
-            mt-16 text-lg
+            mt-16 text-2xl
             sm:w-[340px]
             md:w-[400px]
             lg:w-[500px]
           `}
           >
-            {"Little tagline that explain what we mean by profit-sharing and caring."}
+            {"Join the ranks of savvy users earning extra cash with our profit-sharing org."}
           </div>
         </div>
         <div
@@ -117,6 +117,64 @@ export default function Home() {
           height={794}
         />
       </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 max-w-[1200px] gap-8 mx-auto px-8">
+        <HeroTile
+          title="Quirky Rewards"
+          desc="As a validator we receive 5% of the staking rewards. As we already have lambos, it will be fairer to give some back to you"
+          Illustration={() => (
+            <Image src={`${prefix}/img/chemical.png`} alt="chemical" width={120} height={120} />
+          )}
+        />
+        <HeroTile
+          title="Interchain-Security style rewards"
+          desc="Getting OSMOS rewards while staking OSMO is boring. Why not getting your profit sharing slice in an other blue chip token?"
+          Illustration={() => (
+            <Image src={`${prefix}/img/padlock.png`} alt="three-coins" width={100} height={100} />
+          )}
+        />
+        <HeroTile
+          title="Pick your blue chip"
+          isComingSoon
+          desc="You are already an ATOM Billionaire? You can vote to receive STARS instead."
+          Illustration={() => (
+            <Image
+              src={`${prefix}/img/three-coins.png`}
+              alt="three-coins"
+              width={150}
+              height={150}
+            />
+          )}
+        />
+        <HeroTile
+          title="Wen?"
+          desc="You will get the profit sharing rewards monthly."
+          Illustration={() => (
+            <Image src={`${prefix}/img/hourglass.png`} alt="hourglass" width={80} height={80} />
+          )}
+        />
+      </div>
     </div>
   );
 }
+
+type HeroTileProps = {
+  title: string;
+  desc: string;
+  Illustration: React.FC<{}>;
+  isComingSoon?: boolean;
+};
+
+const HeroTile = (props: HeroTileProps) => (
+  <div className="relative text-xl border border-blue-2 border-opacity-20 rounded-lg bg-blue-2 bg-opacity-5 p-8">
+    {props.isComingSoon && (
+      <div className="absolute right-0 px-4 py-2 top-4 rounded-l-lg leading-none font-alt uppercase tracking-widest opacity-50 bg-blue-2 text-blue-1">
+        {"Coming soon"}
+      </div>
+    )}
+    <div className="flex items-center justify-center mb-16 mt-10 h-[150px]">
+      <props.Illustration />
+    </div>
+    <div className="text-4xl font-alt text-orange-1">{props.title}</div>
+    <div>{props.desc}</div>
+  </div>
+);
