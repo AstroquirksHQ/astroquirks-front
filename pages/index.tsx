@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import NextAirdropCounter from "../components/NextAirdropCounter";
+
 const prefix = process.env["NODE_ENV"] === "production" ? "/astroquirks-front" : "";
 
 const tileData: HeroTileProps[] = [
@@ -61,7 +63,9 @@ export default function Home() {
             height={24}
           />
           <span>{"Next airdrop: "}</span>
-          <span className="font-alt text-2xl whitespace-nowrap">{"4 days + 3h 2min 37s"}</span>
+          <span className="font-alt text-2xl whitespace-nowrap">
+            <NextAirdropCounter />
+          </span>
         </div>
       </div>
       <div>
