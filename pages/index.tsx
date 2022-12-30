@@ -165,7 +165,7 @@ type HeroTileProps = {
 };
 
 const HeroTile = (props: HeroTileProps) => (
-  <div className="relative text-xl border border-blue-2 border-opacity-20 rounded-lg bg-blue-2 bg-opacity-5 p-8">
+  <div className="relative text-xl border border-blue-2 border-opacity-20 rounded-lg bg-blue-2 bg-opacity-5 p-8 glass shadow-md">
     {props.isComingSoon && (
       <div className="absolute right-0 px-4 py-2 top-4 rounded-l-lg leading-none font-alt uppercase tracking-widest opacity-50 bg-blue-2 text-blue-1">
         {"Coming soon"}

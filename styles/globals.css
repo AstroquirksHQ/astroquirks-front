@@ -12,3 +12,7 @@ body {
 img {
   @apply select-none pointer-events-none;
 }
+
+.glass {
+  backdrop-filter: blur(10px);
+}
