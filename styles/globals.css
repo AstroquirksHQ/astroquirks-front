@@ -4,8 +4,7 @@
 
 html,
 body {
-  @apply bg-gradient-to-b from-blue-1 to-blue-3 text-blue-2 font-display;
-  padding-bottom: 60px;
+  @apply bg-gradient-to-b from-blue-1 to-blue-5 text-blue-2 font-display;
   min-height: 200vh;
 }
 
@@ -13,6 +12,36 @@ img {
   @apply select-none pointer-events-none;
 }
 
+button {
+  @apply whitespace-nowrap;
+}
+
+.link {
+  @apply underline hover:text-[#fff] underline-offset-4;
+}
+
 .glass {
   backdrop-filter: blur(10px);
+}
+
+.square-pattern {
+  background-color: transparent;
+  background-image: repeating-linear-gradient(
+      45deg,
+      hsla(202, 46%, 59%, 0.05) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(202, 46%, 59%, 0.05) 75%,
+      hsla(202, 46%, 59%, 0.05)
+    ),
+    repeating-linear-gradient(
+      45deg,
+      hsla(202, 46%, 59%, 0.05) 25%,
+      transparent 25%,
+      transparent 75%,
+      hsla(202, 46%, 59%, 0.05) 75%,
+      hsla(202, 46%, 59%, 0.05)
+    );
+  background-position: 0 0, 10px 10px;
+  background-size: 20px 20px;
 }

@@ -1,3 +1,5 @@
+const prefix = process.env["NODE_ENV"] === "production" ? "/astroquirks-front" : "";
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./pages/**/*.tsx", "./components/**/*.tsx"],
@@ -7,6 +9,7 @@ module.exports = {
       "blue-2": "hsl(202, 46%, 59%)",
       "blue-3": "hsl(222, 61%, 12%)",
       "blue-4": "hsl(202, 46%, 30%)",
+      "blue-5": "hsl(222, 61%, 7%)",
       "orange-1": "hsl(42, 36%, 65%)",
       "orange-2": "hsl(36, 24%, 53%)",
       "orange-3": "hsl(43, 56%, 68%)",

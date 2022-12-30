@@ -2,10 +2,41 @@ import Image from "next/image";
 
 const prefix = process.env["NODE_ENV"] === "production" ? "/astroquirks-front" : "";
 
+const tileData: HeroTileProps[] = [
+  {
+    title: "Quirky Rewards",
+    desc: "As a validator, we receive a portion of the staking rewards. In the spirit of fairness, we would like to share some of these rewards with you, as we already have the resources (e.g. lambos) that these rewards provide.",
+    Illustration: () => (
+      <Image src={`${prefix}/img/chemical.png`} alt="chemical" width={120} height={120} />
+    ),
+  },
+  {
+    title: "Interchain-Security style rewards",
+    desc: "Getting OSMOS rewards while staking OSMO is boring. Why not getting your profit sharing slice in an other blue chip token?",
+    Illustration: () => (
+      <Image src={`${prefix}/img/padlock.png`} alt="three-coins" width={100} height={100} />
+    ),
+  },
+  {
+    title: "Pick your blue chip",
+    desc: "You are already an ATOM Billionaire? You can vote to receive STARS instead.",
+    Illustration: () => (
+      <Image src={`${prefix}/img/three-coins.png`} alt="three-coins" width={150} height={150} />
+    ),
+  },
+  {
+    title: "Wen?",
+    desc: "You will get the profit sharing rewards monthly.",
+    Illustration: () => (
+      <Image src={`${prefix}/img/hourglass.png`} alt="hourglass" width={80} height={80} />
+    ),
+  },
+];
+
 export default function Home() {
   return (
     <div>
-      <div className="p-8 flex justify-between items-start">
+      <div className="p-8 mb-4 flex-col items-center sm:flex-row space-y-6 sm:space-y-0 flex justify-between sm:items-start">
         <div className="flex items-center space-x-4">
           <Image src={`${prefix}/img/logo.png`} alt="logo" width={30} height={30} />
           <div className="uppercase text-blue-2 tracking-widest select-none">
@@ -20,17 +51,17 @@ export default function Home() {
           <span className="group-hover:border-b-2">{"Launch App"}</span>
         </button>
       </div>
-      <div className="flex items-center justify-center">
-        <div className="bg-[#111] border border-blue-2 border-opacity-50 rounded-lg shadow-lg border-dashed bg-opacity-70 text-[#fff] text-xl p-4">
+      <div className="flex items-center justify-center px-4">
+        <div className="bg-[#111] border border-blue-2 border-opacity-50 rounded-lg shadow-lg border-dashed bg-opacity-70 text-[#fff] text-xl p-4 text-center sm:text-left">
           <Image
-            className="inline mr-2"
+            className="inline mr-2 -mt-[4px]"
             src={`${prefix}/img/bell.svg`}
             alt="bell"
             width={24}
             height={24}
           />
           <span>{"Next airdrop: "}</span>
-          <span className="font-alt text-2xl">{"4 days 3 hours 2 minutes 37 seconds"}</span>
+          <span className="font-alt text-2xl whitespace-nowrap">{"4 days + 3h 2min 37s"}</span>
         </div>
       </div>
       <div>
@@ -83,22 +114,12 @@ export default function Home() {
           className={`
           relative bg-blue-4 bg-opacity-20 min-h-[50px]
           sm:mt-[50px]
-          md:mt-[100px]
-          lg:mt-[200px]
         `}
         >
           {/* eslint-disable-next-line */}
-          <img
-            className="absolute bottom-full w-full opacity-20"
-            src={`${prefix}/img/wave.svg`}
-            alt="landing"
-          />
+          <img className="absolute bottom-full w-full opacity-20" src={`${prefix}/img/wave.svg`} />
           {/* eslint-disable-next-line */}
-          <img
-            className="absolute top-full w-full opacity-20"
-            src={`${prefix}/img/wave-2.svg`}
-            alt="landing"
-          />
+          <img className="absolute top-full w-full opacity-20" src={`${prefix}/img/wave-2.svg`} />
         </div>
         <Image
           className={`
@@ -109,49 +130,31 @@ export default function Home() {
             sm:w-[300px]
             md:w-[400px]
             lg:w-[550px]
-            xl:w-auto
+            xl:w-[600px]
+            sm:visible
+            invisible
           `}
           src={`${prefix}/img/landing.png`}
           alt="landing"
-          width={778}
+          width={600}
           height={794}
         />
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-2 max-w-[1200px] gap-8 mx-auto px-8">
-        <HeroTile
-          title="Quirky Rewards"
-          desc="As a validator we receive 5% of the staking rewards. As we already have lambos, it will be fairer to give some back to you"
-          Illustration={() => (
-            <Image src={`${prefix}/img/chemical.png`} alt="chemical" width={120} height={120} />
-          )}
-        />
-        <HeroTile
-          title="Interchain-Security style rewards"
-          desc="Getting OSMOS rewards while staking OSMO is boring. Why not getting your profit sharing slice in an other blue chip token?"
-          Illustration={() => (
-            <Image src={`${prefix}/img/padlock.png`} alt="three-coins" width={100} height={100} />
-          )}
-        />
-        <HeroTile
-          title="Pick your blue chip"
-          isComingSoon
-          desc="You are already an ATOM Billionaire? You can vote to receive STARS instead."
-          Illustration={() => (
-            <Image
-              src={`${prefix}/img/three-coins.png`}
-              alt="three-coins"
-              width={150}
-              height={150}
-            />
-          )}
-        />
-        <HeroTile
-          title="Wen?"
-          desc="You will get the profit sharing rewards monthly."
-          Illustration={() => (
-            <Image src={`${prefix}/img/hourglass.png`} alt="hourglass" width={80} height={80} />
-          )}
-        />
+      <div className="grid grid-cols-1 max-w-[600px] lg:grid-cols-2 lg:max-w-[1200px] gap-8 mx-auto px-4 sm:px-8">
+        {tileData.map((p) => (
+          <HeroTile key={p.title} {...p} />
+        ))}
+      </div>
+      <div className="py-20 mt-40 relative bg-blue-1 bg-opacity-10 border-t-2 shadow-inner border-blue-5 text-center text-blue-4">
+        <div className="absolute top-0 left-0 right-0 bottom-0 square-pattern pointer-events-none opacity-30"></div>
+        <a
+          className="link"
+          href="https://github.com/AstroquirksHQ"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {"GitHub organization"}
+        </a>
       </div>
     </div>
   );
