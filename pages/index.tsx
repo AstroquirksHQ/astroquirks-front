@@ -46,7 +46,7 @@ export default function Home() {
         </div>
         <button
           className="group bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold hover:text-orange-1 outline-none"
-          onClick={() => alert("u mad?")}
+          onClick={() => {}}
         >
           <span className="group-hover:border-b-2">{"Launch App"}</span>
         </button>
