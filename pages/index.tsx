@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import NextAirdropCounter from "../components/NextAirdropCounter";
 
@@ -46,12 +47,12 @@ export default function Home() {
             <span className="font-semibold">{"quirks"}</span>
           </div>
         </div>
-        <button
-          className="group bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold hover:text-orange-1 outline-none"
-          onClick={() => {}}
+        <Link
+          href="/app"
+          className="group bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold hover:text-orange-1 outline-none active:bg-blue-5"
         >
           <span className="group-hover:border-b-2">{"Launch App"}</span>
-        </button>
+        </Link>
       </div>
       <div className="flex items-center justify-center px-4">
         <div className="bg-[#111] border border-blue-2 border-opacity-50 rounded-lg shadow-lg border-dashed bg-opacity-70 text-[#fff] text-xl p-4 text-center sm:text-left">
@@ -82,6 +83,7 @@ export default function Home() {
               text-[50px]
               md:text-[70px]
               xl:text-[100px]
+              relative z-10
           `}
           >
             <span className="text-orange-1">{"Profit"}</span>
@@ -105,7 +107,7 @@ export default function Home() {
           </div>
           <div
             className={`
-            mt-16 text-2xl
+            mt-4 text-2xl
             sm:w-[340px]
             md:w-[400px]
             lg:w-[500px]

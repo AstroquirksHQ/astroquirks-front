@@ -5,7 +5,6 @@
 html,
 body {
   @apply bg-gradient-to-b from-blue-1 to-blue-5 text-blue-2 font-display;
-  min-height: 200vh;
 }
 
 img {
