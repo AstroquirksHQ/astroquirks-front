@@ -3,36 +3,28 @@ import Link from "next/link";
 
 import NextAirdropCounter from "../components/NextAirdropCounter";
 
-const prefix = process.env["NODE_ENV"] === "production" ? "/astroquirks-front" : "";
-
 const tileData: HeroTileProps[] = [
   {
     title: "Quirky Rewards",
     desc: "As a validator, we receive a portion of the staking rewards. In the spirit of fairness, we would like to share some of these rewards with you, as we already have the resources (e.g. lambos) that these rewards provide.",
-    Illustration: () => (
-      <Image src={`${prefix}/img/chemical.png`} alt="chemical" width={120} height={120} />
-    ),
+    Illustration: () => <Image src="/img/chemical.png" alt="chemical" width={120} height={120} />,
   },
   {
     title: "Interchain-Security style rewards",
     desc: "Getting OSMOS rewards while staking OSMO is boring. Why not getting your profit sharing slice in an other blue chip token?",
-    Illustration: () => (
-      <Image src={`${prefix}/img/padlock.png`} alt="three-coins" width={100} height={100} />
-    ),
+    Illustration: () => <Image src="/img/padlock.png" alt="three-coins" width={100} height={100} />,
   },
   {
     title: "Pick your blue chip",
     desc: "You are already an ATOM Billionaire? You can vote to receive STARS instead.",
     Illustration: () => (
-      <Image src={`${prefix}/img/three-coins.png`} alt="three-coins" width={150} height={150} />
+      <Image src="/img/three-coins.png" alt="three-coins" width={150} height={150} />
     ),
   },
   {
     title: "Wen?",
     desc: "You will get the profit sharing rewards monthly.",
-    Illustration: () => (
-      <Image src={`${prefix}/img/hourglass.png`} alt="hourglass" width={80} height={80} />
-    ),
+    Illustration: () => <Image src="/img/hourglass.png" alt="hourglass" width={80} height={80} />,
   },
 ];
 
@@ -41,7 +33,7 @@ export default function Home() {
     <div>
       <div className="p-8 mb-4 flex-col items-center sm:flex-row space-y-6 sm:space-y-0 flex justify-between sm:items-start">
         <div className="flex items-center space-x-4">
-          <Image src={`${prefix}/img/logo.png`} alt="logo" width={30} height={30} />
+          <Image src="/img/logo.png" alt="logo" width={30} height={30} />
           <div className="uppercase text-blue-2 tracking-widest select-none">
             {"Astro"}
             <span className="font-semibold">{"quirks"}</span>
@@ -58,7 +50,7 @@ export default function Home() {
         <div className="bg-[#111] border border-blue-2 border-opacity-50 rounded-lg shadow-lg border-dashed bg-opacity-70 text-[#fff] text-xl p-4 text-center sm:text-left">
           <Image
             className="inline mr-2 -mt-[4px]"
-            src={`${prefix}/img/bell.svg`}
+            src="/img/bell.svg"
             alt="bell"
             width={24}
             height={24}
@@ -95,7 +87,7 @@ export default function Home() {
               {"CARING"}
               <div className="absolute -top-[5px] -right-[25px] h-[25px] w-[25px] lg:h-[30px] lg:w-[30px] xl:h-[50px] xl:w-[50px] animate-orbit">
                 <Image
-                  src={`${prefix}/img/heart.svg`}
+                  src="/img/heart.svg"
                   className="animate-orbit-reverse              h-[20px] w-[20px] lg:w-[25px] lg:h-[25px] xl:w-[40px] xl:h-[40px] absolute"
                   alt="heart"
                   width={40}
@@ -123,9 +115,9 @@ export default function Home() {
         `}
         >
           {/* eslint-disable-next-line */}
-          <img className="absolute bottom-full w-full opacity-20" src={`${prefix}/img/wave.svg`} />
+          <img className="absolute bottom-full w-full opacity-20" src="/img/wave.svg" />
           {/* eslint-disable-next-line */}
-          <img className="absolute top-full w-full opacity-20" src={`${prefix}/img/wave-2.svg`} />
+          <img className="absolute top-full w-full opacity-20" src="/img/wave-2.svg" />
         </div>
         <Image
           className={`
@@ -140,7 +132,7 @@ export default function Home() {
             sm:visible
             invisible
           `}
-          src={`${prefix}/img/landing.png`}
+          src="/img/landing.png"
           alt="landing"
           width={600}
           height={794}

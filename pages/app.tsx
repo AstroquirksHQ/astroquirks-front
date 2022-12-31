@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-const prefix = process.env["NODE_ENV"] === "production" ? "/astroquirks-front" : "";
-
 const DApp = () => {
   return (
     <div className="h-screen flex items-center justify-center flex-col px-8">
@@ -15,7 +13,7 @@ const DApp = () => {
       >
         <div className="absolute top-0 left-0 right-0 bottom-0 bg-orange-1 opacity-5 -rotate-45"></div>
         <Image
-          src={`${prefix}/img/construction.png`}
+          src="/img/construction.png"
           width={200}
           height={193}
           alt="construction"

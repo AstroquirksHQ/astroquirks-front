@@ -1,5 +1,3 @@
-const prefix = process.env["NODE_ENV"] === "production" ? "/astroquirks-front" : "";
-
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./pages/**/*.tsx", "./components/**/*.tsx"],

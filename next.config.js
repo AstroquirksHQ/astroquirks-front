@@ -8,7 +8,6 @@ const nextConfig = {
   // build config
   ...(isProd
     ? {
-        assetPrefix: "/astroquirks-front/",
         images: {
           unoptimized: true,
         },
