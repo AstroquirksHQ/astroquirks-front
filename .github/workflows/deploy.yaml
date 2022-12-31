@@ -40,7 +40,7 @@ jobs:
         run: pnpm install
 
       - name: Build
-        run: pnpm build && pnpm export
+        run: pnpm build && pnpm export && (echo astroquirks.com > ./out/CNAME)
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
