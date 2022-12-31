@@ -13,7 +13,7 @@ const DApp = () => {
       >
         <div className="absolute top-0 left-0 right-0 bottom-0 bg-orange-1 opacity-5 -rotate-45"></div>
         <Image
-          src="/img/construction.png"
+          src="/img/construction.webp"
           width={200}
           height={193}
           alt="construction"
