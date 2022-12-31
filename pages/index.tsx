@@ -117,9 +117,17 @@ export default function Home() {
         `}
         >
           {/* eslint-disable-next-line */}
-          <img className="absolute bottom-full w-full opacity-20" src="/img/wave.svg" />
+          <img
+            alt="wave-top"
+            className="absolute bottom-full w-full opacity-20"
+            src="/img/wave.svg"
+          />
           {/* eslint-disable-next-line */}
-          <img className="absolute top-full w-full opacity-20" src="/img/wave-2.svg" />
+          <img
+            alt="wave-bot"
+            className="absolute top-full w-full opacity-20"
+            src="/img/wave-2.svg"
+          />
         </div>
         <Image
           className={`
