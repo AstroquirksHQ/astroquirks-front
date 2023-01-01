@@ -7,10 +7,6 @@ body {
   @apply bg-gradient-to-b from-blue-1 to-blue-5 text-blue-2 font-display;
 }
 
-img {
-  @apply select-none pointer-events-none;
-}
-
 button {
   @apply whitespace-nowrap;
 }

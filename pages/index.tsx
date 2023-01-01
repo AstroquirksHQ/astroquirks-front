@@ -7,26 +7,26 @@ const tileData: HeroTileProps[] = [
   {
     title: "Quirky Rewards",
     desc: "As a validator, we receive a portion of the staking rewards. In the spirit of fairness, we would like to share some of these rewards with you, as we already have the resources (e.g. lambos) that these rewards provide.",
-    Illustration: () => <Image src="/img/chemical.webp" alt="chemical" width={120} height={120} />,
+    Illustration: () => <Image src="/img/chemical.webp" alt="chemical" width={109} height={150} />,
   },
   {
     title: "Interchain-Security style rewards",
     desc: "Getting OSMOS rewards while staking OSMO is boring. Why not getting your profit sharing slice in an other blue chip token?",
     Illustration: () => (
-      <Image src="/img/padlock.webp" alt="three-coins" width={100} height={100} />
+      <Image src="/img/padlock.webp" alt="three-coins" width={104} height={150} />
     ),
   },
   {
     title: "Pick your blue chip",
     desc: "You are already an ATOM Billionaire? You can vote to receive STARS instead.",
     Illustration: () => (
-      <Image src="/img/three-coins.webp" alt="three-coins" width={150} height={150} />
+      <Image src="/img/three-coins.webp" alt="three-coins" width={158} height={150} />
     ),
   },
   {
     title: "Wen?",
     desc: "You will get the profit sharing rewards monthly.",
-    Illustration: () => <Image src="/img/hourglass.webp" alt="hourglass" width={80} height={80} />,
+    Illustration: () => <Image src="/img/hourglass.webp" alt="hourglass" width={79} height={150} />,
   },
 ];
 
@@ -132,13 +132,14 @@ export default function Home() {
         <Image
           className={`
             absolute right-0
-            top-[200px]
-            md:top-[140px]
+            top-[230px]
+            md:top-[200px]
             w-[200px]
             sm:w-[300px]
             md:w-[400px]
             lg:w-[550px]
             xl:w-[600px]
+            h-auto
             sm:visible
             invisible
           `}
