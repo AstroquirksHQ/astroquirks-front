@@ -43,7 +43,7 @@ export default function Home() {
         </div>
         <Link
           href="/app"
-          className="group bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold hover:text-orange-1 outline-none active:bg-blue-5"
+          className="group bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold hover:text-orange-1 active:bg-blue-5"
         >
           <span className="group-hover:border-b-2">{"Launch App"}</span>
         </Link>

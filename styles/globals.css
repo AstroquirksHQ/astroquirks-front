@@ -11,6 +11,10 @@ button {
   @apply whitespace-nowrap;
 }
 
+a {
+  @apply focus-visible:ring-2 focus-visible:ring-blue-2 focus-visible:ring-opacity-30 outline-none;
+}
+
 .link {
   @apply underline hover:text-[#fff] underline-offset-4;
 }
