@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { FiExternalLink } from "react-icons/fi";
 
 import NextAirdropCounter from "../components/NextAirdropCounter";
 
@@ -41,12 +42,23 @@ export default function Home() {
             <span className="font-semibold">{"quirks"}</span>
           </div>
         </div>
-        <Link
-          href="/app"
-          className="group bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold hover:text-orange-1 active:bg-blue-5"
-        >
-          <span className="group-hover:border-b-2">{"Launch App"}</span>
-        </Link>
+        <div className="flex items-center space-x-8">
+          <a
+            href="http://stake.astroquirks.com"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="inline-flex space-x-2 items-center link"
+          >
+            <FiExternalLink />
+            <span>{"Stake on Keplr"}</span>
+          </a>
+          <Link
+            href="/app"
+            className="group bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold hover:text-orange-1 active:bg-blue-5"
+          >
+            <span className="group-hover:border-b-2">{"Launch App"}</span>
+          </Link>
+        </div>
       </div>
       <div className="flex items-center justify-center px-4">
         <div className="bg-[#111] border border-blue-2 border-opacity-50 rounded-lg shadow-lg border-dashed bg-opacity-70 text-[#fff] text-xl p-4 text-center sm:text-left">
