@@ -34,15 +34,16 @@ const tileData: HeroTileProps[] = [
 export default function Home() {
   return (
     <div>
-      <div className="p-8 mb-4 flex-col items-center sm:flex-row space-y-6 sm:space-y-0 flex justify-between sm:items-start">
+      <div className="p-8 mb-4 flex-col items-center md:flex-row space-y-6 md:space-y-0 flex justify-between md:items-start">
         <div className="flex items-center space-x-4">
           <Image src="/img/logo.webp" alt="logo" width={30} height={30} />
           <div className="uppercase text-blue-2 tracking-widest select-none">
             {"Astro"}
             <span className="font-semibold">{"quirks"}</span>
+            <span className="opacity-60">{" - Osmosis validator"}</span>
           </div>
         </div>
-        <div className="flex items-center space-x-8">
+        <div className="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-8">
           <a
             href="http://stake.astroquirks.com"
             target="_blank"
@@ -113,13 +114,15 @@ export default function Home() {
           </div>
           <div
             className={`
-            mt-4 text-2xl
+            mt-4 text-xl
             sm:w-[340px]
             md:w-[400px]
             lg:w-[500px]
           `}
           >
-            {"Join the ranks of savvy users earning extra cash with our profit-sharing org."}
+            {
+              "Securing the universe and sharing the rewards with our delegators. A universe of possibilities..."
+            }
           </div>
         </div>
         <div
@@ -131,7 +134,7 @@ export default function Home() {
           {/* eslint-disable-next-line */}
           <img
             alt="wave-top"
-            className="absolute bottom-full w-full opacity-20"
+            className="absolute bottom-full w-full opacity-20 pointer-events-none"
             src="/img/wave.svg"
           />
           {/* eslint-disable-next-line */}
