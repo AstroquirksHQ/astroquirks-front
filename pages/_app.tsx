@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>{"Astroquirks"}</title>
+        <title>{"Astroquirks - Profit Sharing is Caring ❤️3"}</title>
       </Head>
       <QueryClientProvider client={queryClient}>
         <Component {...pageProps} />
