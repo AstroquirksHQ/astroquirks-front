@@ -17,6 +17,13 @@ export default function Document() {
           href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&family=Passion+One&display=swap"
           rel="stylesheet"
         />
+
+        {/* Twitter card metadatas */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content="@astroquirks" />
+        <meta name="twitter:title" content="Astroquirks - Osmosis validator" />
+        <meta name="twitter:description" content="Profit Sharing is Caring ❤️3" />
+        <meta name="twitter:image" content="https://astroquirks.com/img/screenshot.png" />
       </Head>
       <body>
         <Main />
