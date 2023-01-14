@@ -44,15 +44,6 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-8">
-          <a
-            href="http://stake.astroquirks.com"
-            target="_blank"
-            rel="noreferrer noopener"
-            className="inline-flex space-x-2 items-center link"
-          >
-            <FiExternalLink />
-            <span>{"Stake on Keplr"}</span>
-          </a>
           <Link
             href="/app"
             className="group bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold hover:text-orange-1 active:bg-blue-5"
@@ -61,7 +52,7 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="flex items-center justify-center px-4">
+      <div className="flex flex-col space-y-4 items-center justify-center px-4">
         <div className="bg-[#111] border border-blue-2 border-opacity-50 rounded-lg shadow-lg border-dashed bg-opacity-70 text-[#fff] text-xl p-4 text-center sm:text-left">
           <Image
             className="inline mr-2 -mt-[4px]"
@@ -75,6 +66,15 @@ export default function Home() {
             <NextAirdropCounter />
           </span>
         </div>
+        <a
+          href="http://stake.astroquirks.com"
+          target="_blank"
+          rel="noreferrer noopener"
+          className="inline-flex space-x-2 items-center link"
+        >
+          <FiExternalLink />
+          <span>{"Wanna be eligible? Stake with us!"}</span>
+        </a>
       </div>
       <div>
         <div
@@ -157,6 +157,7 @@ export default function Home() {
             h-auto
             sm:visible
             invisible
+            pointer-events-none
           `}
           src="/img/landing.webp"
           alt="landing"
