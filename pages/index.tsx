@@ -66,15 +66,18 @@ export default function Home() {
             <NextAirdropCounter />
           </span>
         </div>
-        <a
-          href="http://stake.astroquirks.com"
-          target="_blank"
-          rel="noreferrer noopener"
-          className="inline-flex space-x-2 items-center link"
-        >
-          <FiExternalLink />
-          <span>{"Wanna be eligible? Stake with us!"}</span>
-        </a>
+        <div>
+          <span>{"Wanna be eligible?"}</span>
+          <a
+            href="http://stake.astroquirks.com"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="inline-flex ml-4 space-x-2 items-center text-[#fff] bg-[#36567d] hover:bg-[#000] font-semibold border-opacity-50 p-2 rounded"
+          >
+            <FiExternalLink className="opacity-40" />
+            <span>{"Stake with us! 😍"}</span>
+          </a>
+        </div>
       </div>
       <div>
         <div
