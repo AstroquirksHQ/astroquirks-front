@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FiExternalLink } from "react-icons/fi";
 
+import InteractiveHeart from "../components/InteractiveHeart";
 import NextAirdropCounter from "../components/NextAirdropCounter";
 
 const tileData: HeroTileProps[] = [
@@ -103,14 +104,8 @@ export default function Home() {
             <span className="text-blue-2">{"is "}</span>
             <span className="text-orange-1 z-10 relative">
               {"CARING"}
-              <div className="absolute -top-[5px] -right-[25px] h-[25px] w-[25px] lg:h-[30px] lg:w-[30px] xl:h-[50px] xl:w-[50px] animate-orbit">
-                <Image
-                  src="/img/heart.svg"
-                  className="animate-orbit-reverse              h-[20px] w-[20px] lg:w-[25px] lg:h-[25px] xl:w-[40px] xl:h-[40px] absolute"
-                  alt="heart"
-                  width={40}
-                  height={40}
-                />
+              <div className="absolute -top-[15px] -right-[25px]">
+                <InteractiveHeart />
               </div>
             </span>
             <span className="text-blue-2">{"."}</span>
