@@ -22,7 +22,7 @@ export default function Document() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:site" content="@astroquirks" />
         <meta name="twitter:title" content="Astroquirks - Osmosis validator" />
-        <meta name="twitter:description" content="Profit Sharing is Caring ❤️3" />
+        <meta name="twitter:description" content="Profit Sharing is Caring ❤️" />
         <meta name="twitter:image" content="https://astroquirks.com/img/screenshot.png" />
       </Head>
       <body>
