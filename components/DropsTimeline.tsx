@@ -8,6 +8,7 @@ import { fetchRewards, QuirkReward } from "../client-api";
 import Collapse from "./Collapse";
 import CountDown from "./CountDown";
 import DistributionPie from "./DistributionPie";
+import OnlyWeb from "./OnlyWeb";
 
 type TimelineBaseEvent = {
   id: string;
@@ -159,7 +160,9 @@ const DropsTimeline = () => {
                   <strong className="text-orange-1 relative z-10">{"Incoming airdrop!"}</strong>
                   <div className="mt-8">
                     <span className="bg-blue-5 p-4 rounded-xl bg-opacity-40 text-[#fff] font-bold border border-blue-2 border-opacity-10 shadow-lg">
-                      <CountDown untilDate={new Date(reward.date)} />
+                      <OnlyWeb>
+                        <CountDown untilDate={new Date(reward.date)} />
+                      </OnlyWeb>
                     </span>
                   </div>
                 </div>
