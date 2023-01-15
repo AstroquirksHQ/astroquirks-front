@@ -45,7 +45,7 @@ const EventContainer = ({
       <div className="pb-4 opacity-50">
         <>{format(event.date, "PPP")}</>
       </div>
-      <div className="absolute top-0 bottom-0 right-full mr-8 opacity-30">
+      <div className="absolute top-0 bottom-0 right-full mr-3 sm:mr-8 opacity-10">
         <div
           className={`bg-blue-4 w-[4px] absolute bottom-0 ${isFirst ? "top-8" : "top-0"} ${
             isLast ? "bottom-auto h-16" : ""
@@ -60,7 +60,7 @@ const EventContainer = ({
           <div className="absolute w-[20px] h-[20px] top-[9px] left-[9px] rounded-full bg-blue-2 z-10"></div>
         </div>
       </div>
-      <div className="bg-blue-1 bg-opacity-30 w-[400px] border border-blue-1 shadow-lg p-8 rounded relative">
+      <div className="bg-blue-1 bg-opacity-30 w-[300px] sm:w-[500px] border border-blue-1 shadow-lg p-8 rounded relative">
         {url && (
           <div className="absolute top-1 right-1 text-sm">
             <a
@@ -114,7 +114,7 @@ const DropsTimeline = () => {
   const events = useBuildEvents({ rewards });
 
   return (
-    <div className="flex flex-col items-center text-left">
+    <div className="flex flex-col ml-6 sm:ml-0 sm:items-center text-left">
       {events.map((event, i) => {
         const isPast = isBefore(event.date, new Date());
         const isFirst = i === 0;
@@ -158,7 +158,7 @@ const DropsTimeline = () => {
               ) : (
                 <div className="text-center">
                   <strong className="text-orange-1 relative z-10">{"Incoming airdrop!"}</strong>
-                  <div className="mt-8">
+                  <div className="my-8">
                     <span className="bg-blue-5 p-4 rounded-xl bg-opacity-40 text-[#fff] font-bold border border-blue-2 border-opacity-10 shadow-lg">
                       <OnlyWeb>
                         <CountDown untilDate={new Date(reward.date)} />
