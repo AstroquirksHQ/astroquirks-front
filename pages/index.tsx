@@ -39,10 +39,14 @@ export default function Home() {
       <div className="p-8 mb-4 flex-col items-center md:flex-row space-y-6 md:space-y-0 flex justify-between md:items-start">
         <div className="flex items-center space-x-4">
           <Image className="rounded-full" src="/img/logo.webp" alt="logo" width={30} height={30} />
-          <div className="uppercase text-blue-2 tracking-widest select-none">
-            {"Astro"}
-            <span className="font-semibold">{"quirks"}</span>
-            <span className="opacity-60">{" - Osmosis validator"}</span>
+          <div>
+            <div className="uppercase text-blue-2 tracking-widest select-none">
+              {"Astro"}
+              <span className="font-semibold">{"quirks"}</span>
+            </div>
+            <div className="uppercase text-blue-2 tracking-widest select-none opacity-60 text-[11px]">
+              {"Osmosis validator"}
+            </div>
           </div>
         </div>
         <div className="flex flex-col md:flex-row items-center space-y-8 md:space-y-0 md:space-x-8">
