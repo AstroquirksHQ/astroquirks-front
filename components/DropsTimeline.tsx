@@ -1,7 +1,7 @@
 import BigNumber from "bignumber.js";
 import { format, isBefore } from "date-fns";
 import { ReactNode, useMemo } from "react";
-import { FiExternalLink } from "react-icons/fi";
+import { FiChevronsDown, FiExternalLink } from "react-icons/fi";
 import { useQuery } from "react-query";
 
 import { fetchRewards, QuirkReward } from "../client-api";
@@ -61,6 +61,12 @@ const EventContainer = ({
         </div>
       </div>
       <div className="bg-blue-1 bg-opacity-30 w-[300px] sm:w-[500px] border border-blue-1 shadow-lg p-8 rounded relative">
+        {event.type === "REWARD" && (
+          <div className="uppercase text-blue-2 tracking-widest select-none absolute top-2 left-3 opacity-40 font-semibold flex items-center space-x-2">
+            <FiChevronsDown />
+            <span>{"Airdrop"}</span>
+          </div>
+        )}
         {url && (
           <div className="absolute top-1 right-1 text-sm">
             <a
@@ -148,7 +154,10 @@ const DropsTimeline = () => {
                     </div>
                   </div>
                   <div className="-m-8">
-                    <Collapse labelClosed={"Show distribution"} labelOpened={"Hide distribution"}>
+                    <Collapse
+                      labelClosed={"Show distribution by address"}
+                      labelOpened={"Hide distribution by address"}
+                    >
                       <div className="h-[300px]">
                         <DistributionPie snapshot={reward.snapshot} />
                       </div>

@@ -14,45 +14,57 @@ const Collapse = (props: Props) => {
   const toggle = () => setOpen(!isOpen);
 
   return (
-    <div className={isOpen ? "overflow-visible" : "overflow-hidden"}>
-      <AnimatePresence initial={false}>
-        {isOpen && (
-          <motion.section
-            key="content"
-            initial="collapsed"
-            animate="open"
-            exit="exit"
-            variants={{
-              open: { opacity: 1, height: "auto", x: 0, transition: { duration: 0.3 } },
-              collapsed: { opacity: 0, height: 0, transition: { duration: 0.2 } },
-              exit: { opacity: 0, height: 0, y: -400, transition: { duration: 0.3 } },
-            }}
-            transition={{ duration: 0.3 }}
-          >
-            {children}
-          </motion.section>
-        )}
-        <button
-          className="block w-full bg-blue-6 rounded-b bg-opacity-40 p-4 text-center hover:bg-opacity-50 active:bg-opacity-60 transition-colors"
-          onClick={toggle}
+    <AnimatePresence initial={false}>
+      <button
+        className={`block w-full bg-blue-6 select-none ${
+          isOpen ? "" : "rounded-b"
+        } bg-opacity-40 p-4 text-center hover:bg-opacity-50 active:bg-opacity-60 transition-colors relative`}
+        onClick={toggle}
+      >
+        <span className="relative">{isOpen ? labelOpened : labelClosed}</span>
+        <span className={`absolute right-4 top-0 bottom-0 flex items-center justify-center`}>
+          {isOpen ? (
+            <FiChevronUp className="opacity-50" />
+          ) : (
+            <FiChevronDown className="opacity-50" />
+          )}
+        </span>
+      </button>
+      {isOpen && (
+        <motion.section
+          key="content"
+          className="bg-blue-5 bg-opacity-70"
+          layout
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          variants={{
+            initial: {
+              opacity: 0,
+              height: 0,
+            },
+            animate: {
+              opacity: 1,
+              height: "auto",
+              transition: {
+                opacity: { duration: 0.2, delay: 0.2 },
+                height: { duration: 0.2 },
+              },
+            },
+            exit: {
+              opacity: 0,
+              height: 0,
+            },
+          }}
+          transition={{
+            opacity: { duration: 0.2 },
+            height: { duration: 0.3, delay: 0.2 },
+          }}
         >
-          <span className="relative">
-            {isOpen ? labelOpened : labelClosed}
-            <span
-              className={`absolute left-0 right-0 ${
-                isOpen ? "bottom-full" : "top-full"
-              } text-center flex items-center justify-center`}
-            >
-              {isOpen ? (
-                <FiChevronUp className="opacity-30" />
-              ) : (
-                <FiChevronDown className="opacity-30" />
-              )}
-            </span>
-          </span>
-        </button>
-      </AnimatePresence>
-    </div>
+          {children}
+        </motion.section>
+      )}
+    </AnimatePresence>
   );
 };
 

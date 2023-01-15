@@ -36,7 +36,7 @@ const DistributionPie = ({ snapshot }: { snapshot: QuirkRewardSnapshot }) => {
           dataKey="value"
           data={pieData}
           cx="50%"
-          cy={110}
+          cy="50%"
           outerRadius={80}
           fill="hsl(202, 46%, 30%)"
           stroke="hsl(222, 61%, 7%)"
