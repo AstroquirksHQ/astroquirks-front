@@ -47,7 +47,7 @@ const CountDown = (props: Props) => {
     }, 1e3);
     return () => clearInterval(iv);
   }, []);
-  return <span>{`${diff.days} days + ${diff.hours}h ${diff.min}min ${diff.sec}s`}</span>;
+  return <>{`${diff.days} days + ${diff.hours}h ${diff.min}min ${diff.sec}s`}</>;
 };
 
 export default CountDown;

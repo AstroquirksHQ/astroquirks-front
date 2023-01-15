@@ -1,7 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 import { FiExternalLink } from "react-icons/fi";
 
+import DropsTimeline from "../components/DropsTimeline";
 import InteractiveHeart from "../components/InteractiveHeart";
 import NextAirdropCounter from "../components/NextAirdropCounter";
 
@@ -172,6 +174,12 @@ export default function Home() {
         {tileData.map((p) => (
           <HeroTile key={p.title} {...p} />
         ))}
+      </div>
+      <div className="mt-20 px-10 text-center">
+        <h2 className="font-alt text-6xl mb-16">{"Timeline"}</h2>
+        <Suspense fallback="Loading...">
+          <DropsTimeline />
+        </Suspense>
       </div>
       <div className="py-20 mt-40 relative bg-blue-1 bg-opacity-10 border-t-2 shadow-inner border-blue-5 text-center text-blue-4">
         <div className="absolute top-0 left-0 right-0 bottom-0 square-pattern pointer-events-none opacity-30"></div>

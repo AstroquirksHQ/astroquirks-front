@@ -7,12 +7,12 @@ type QuirkRewardSnapshotItem = {
   restaked: string;
 };
 
-type QuirkRewardSnapshot = {
+export type QuirkRewardSnapshot = {
   block_height: number;
   data: QuirkRewardSnapshotItem[];
 };
 
-type QuirkReward = {
+export type QuirkReward = {
   date: string;
   tx_hash: string | null;
   currency: string;
@@ -20,7 +20,7 @@ type QuirkReward = {
     amount: number;
     currency: string;
   };
-  amount: string;
+  amount: number;
   snapshot: QuirkRewardSnapshot;
 };
 

@@ -8,7 +8,12 @@ body {
 }
 
 button {
-  @apply whitespace-nowrap;
+  @apply whitespace-nowrap outline-none focus-visible:ring-2 focus-visible:ring-blue-2 focus-visible:ring-opacity-30;
+}
+
+path,
+svg {
+  @apply outline-none;
 }
 
 a {
