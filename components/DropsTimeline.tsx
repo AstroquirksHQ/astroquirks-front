@@ -129,7 +129,7 @@ const DropsTimeline = () => {
               {isPast ? (
                 <div className="relative">
                   <div className="py-8">
-                    <div className="text-center">
+                    <div className="text-center mb-14">
                       <div className="font-bold text-2xl">
                         <span className="opacity-30 select-none">{"~ "}</span>
                         {`${amount.toFixed(0)} `}
@@ -147,7 +147,7 @@ const DropsTimeline = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="-m-8 mt-8">
+                  <div className="-m-8">
                     <Collapse labelClosed={"Show distribution"} labelOpened={"Hide distribution"}>
                       <div className="h-[300px]">
                         <DistributionPie snapshot={reward.snapshot} />

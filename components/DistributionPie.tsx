@@ -31,16 +31,17 @@ const DistributionPie = ({ snapshot }: { snapshot: QuirkRewardSnapshot }) => {
   }, [data]);
   return (
     <ResponsiveContainer width="100%" height="100%">
-      <PieChart width={400} height={400}>
+      <PieChart width={400} height={300}>
         <Pie
           dataKey="value"
           data={pieData}
           cx="50%"
-          cy="50%"
+          cy={110}
           outerRadius={80}
           fill="hsl(202, 46%, 30%)"
           stroke="hsl(222, 61%, 7%)"
           label={({ value }) => `${value}%`}
+          animationDuration={500}
         />
         <Tooltip content={<CustomTooltip />} />
       </PieChart>
