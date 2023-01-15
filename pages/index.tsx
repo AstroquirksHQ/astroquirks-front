@@ -20,6 +20,7 @@ const tileData: HeroTileProps[] = [
   },
   {
     title: "Pick your blue chip",
+    isComingSoon: true,
     desc: "You are already an ATOM Billionaire? You can vote to receive STARS instead.",
     Illustration: () => (
       <Image src="/img/three-coins.webp" alt="three-coins" width={158} height={150} />
@@ -193,8 +194,8 @@ type HeroTileProps = {
 const HeroTile = (props: HeroTileProps) => (
   <div className="relative text-xl border border-blue-2 border-opacity-20 rounded-lg bg-blue-2 bg-opacity-5 p-8 glass shadow-md">
     {props.isComingSoon && (
-      <div className="absolute right-0 px-4 py-2 top-4 rounded-l-lg leading-none font-alt uppercase tracking-widest opacity-50 bg-blue-2 text-blue-1">
-        {"Coming soon"}
+      <div className="absolute right-0 px-4 py-2 top-4 rounded-l-lg leading-none font-alt uppercase tracking-widest bg-blue-2 bg-opacity-20 text-orange-1">
+        {"🚧 Coming soon"}
       </div>
     )}
     <div className="flex items-center justify-center mb-16 mt-10 h-[150px]">
