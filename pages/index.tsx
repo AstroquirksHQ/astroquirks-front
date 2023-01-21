@@ -97,7 +97,7 @@ export default function Home() {
         >
           <div
             className={`
-              font-alt leading-none whitespace-nowrap text-orange-3 select-none
+              font-alt leading-none whitespace-nowrap text-orange-3
               text-[50px]
               md:text-[70px]
               xl:text-[100px]
@@ -125,9 +125,12 @@ export default function Home() {
             lg:w-[500px]
           `}
           >
-            {
-              "Securing the universe and sharing the rewards with our delegators. A universe of possibilities..."
-            }
+            <p className="leading-loose">
+              <strong className="bg-blue-2 text-blue-1 px-1 rounded">
+                {"Strong & resilient validator"}
+              </strong>
+            </p>
+            <p>{"Securing Osmosis network & sharing the rewards with our delegators."}</p>
           </div>
         </div>
         <div

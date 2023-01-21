@@ -24,7 +24,7 @@ const InteractiveHeart = () => {
   useEffect(() => {
     if (!refOffset) return;
     const adjustPosition = (e: MouseEvent) => {
-      if (e.pageY > 250 && e.pageY < 650) {
+      if (e.pageY > 250 && e.pageY < 750) {
         setOffset({ x: -(refOffset.x - e.pageX) - 30, y: -(refOffset.y - e.pageY) - 30 });
       } else {
         setOffset({ x: 0, y: 0 });
@@ -42,7 +42,7 @@ const InteractiveHeart = () => {
   }, [refOffset, setOffset]);
 
   return (
-    <div ref={ref}>
+    <div ref={ref} className="select-none pointer-events-none">
       <motion.div animate={offset}>
         <div className="animate-orbit w-[40px] h-[40px] lg:w-[60px] lg:h-[60px]">
           <Image
