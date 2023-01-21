@@ -4,6 +4,7 @@ import { Suspense } from "react";
 import { FiExternalLink } from "react-icons/fi";
 
 import DropsTimeline from "../components/DropsTimeline";
+import Footer from "../components/Footer";
 import InteractiveHeart from "../components/InteractiveHeart";
 import NextAirdropCounter from "../components/NextAirdropCounter";
 
@@ -184,17 +185,7 @@ export default function Home() {
           <DropsTimeline />
         </Suspense>
       </div>
-      <div className="py-20 mt-40 relative bg-blue-1 bg-opacity-10 border-t-2 shadow-inner border-blue-5 text-center text-blue-4">
-        <div className="absolute top-0 left-0 right-0 bottom-0 square-pattern pointer-events-none opacity-30"></div>
-        <a
-          className="link"
-          href="https://github.com/AstroquirksHQ"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {"GitHub organization"}
-        </a>
-      </div>
+      <Footer />
     </div>
   );
 }
