@@ -13,6 +13,7 @@ module.exports = {
       "orange-2": "hsl(36, 24%, 53%)",
       "orange-3": "hsl(43, 56%, 68%)",
       "orange-4": "hsl(7, 62%, 68%)",
+      "grey-1": "#070b13",
     },
     fontFamily: {
       display: ["Exo 2", "sans-serif"],

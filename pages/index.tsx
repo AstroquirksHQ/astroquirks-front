@@ -1,6 +1,7 @@
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Suspense } from "react";
+import { ReactNode, Suspense } from "react";
 import { FiExternalLink } from "react-icons/fi";
 
 import DropsTimeline from "../components/DropsTimeline";
@@ -8,31 +9,83 @@ import Footer from "../components/Footer";
 import InteractiveHeart from "../components/InteractiveHeart";
 import NextAirdropCounter from "../components/NextAirdropCounter";
 
+// public/img/1-rocket.webp
+// public/img/2-rewards.webp
+// public/img/3-gifts.webp
+// public/img/4-server.webp
+
 const tileData: HeroTileProps[] = [
   {
-    title: "Quirky Rewards",
-    desc: "As a validator, we receive a portion of the staking rewards. In the spirit of fairness, we would like to share some of these rewards with you, as we already have the resources (e.g. lambos) that these rewards provide.",
-    Illustration: () => <Image src="/img/chemical.webp" alt="chemical" width={109} height={150} />,
-  },
-  {
-    title: "Interchain-Security style rewards",
-    desc: "Getting OSMOS rewards while staking OSMO is boring. Why not getting your profit sharing slice in an other blue chip token?",
+    title: "Monthly airdrop",
+    desc: "Bite into the 5% commission with monthly airdrops and taste the difference.",
     Illustration: () => (
-      <Image src="/img/padlock.webp" alt="three-coins" width={104} height={150} />
+      <Image
+        src="/img/1-rocket.webp"
+        alt="rocket"
+        width={200}
+        height={200}
+        className="rounded-full border-2 border-opacity-20 border-blue-2 shadow-lg"
+      />
     ),
   },
   {
-    title: "Pick your blue chip",
+    title: "Quirky staking rewards",
+    desc: "$OSMO rewards for staking $OSMO? BOR-ING. Take a bite out of profits in a juicy blue chip token instead!",
+    Illustration: () => (
+      <Image
+        src="/img/2-rewards.webp"
+        alt="rewards"
+        width={200}
+        height={200}
+        className="rounded-full border-2 border-opacity-20 border-blue-2 shadow-lg"
+      />
+    ),
+  },
+  {
+    title: "Vote for your airdrop token",
     isComingSoon: true,
-    desc: "You are already an ATOM Billionaire? You can vote to receive STARS instead.",
+    desc: "Blue chip token airdrop not to your taste? Vote for your preferred option with our $QUIRK token-powered DAO, it's like choosing your own toppings on a pizza.",
     Illustration: () => (
-      <Image src="/img/three-coins.webp" alt="three-coins" width={158} height={150} />
+      <Image
+        src="/img/3-gifts.webp"
+        alt="gifts"
+        width={200}
+        height={200}
+        className="rounded-full border-2 border-opacity-20 border-blue-2 shadow-lg"
+      />
     ),
   },
   {
-    title: "Wen?",
-    desc: "You will get the profit sharing rewards monthly.",
-    Illustration: () => <Image src="/img/hourglass.webp" alt="hourglass" width={79} height={150} />,
+    title: "Strong & Resilient Architecture",
+    desc: (
+      <>
+        <div className="mb-4">
+          {
+            "We're the mad scientists of validator node security with geographic and third-party redundancy for maximum uptime and purr-fect peace of mind."
+          }
+        </div>
+        <div className="text-sm flex space-x-2 items-center">
+          <FiExternalLink className="opacity-50" />
+          <a
+            href="https://medium.com/@astroquirks/astroquirks-a-technical-overview-on-building-a-resilient-validator-setup-4313a3c00be7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="border-b border-blue-2 border-opacity-30 hover:border-opacity-100 border-dashed"
+          >
+            {"A technical overview on building a resilient validator setup"}
+          </a>
+        </div>
+      </>
+    ),
+    Illustration: () => (
+      <Image
+        src="/img/4-server.webp"
+        alt="gifts"
+        width={200}
+        height={200}
+        className="rounded-full border-2 border-opacity-20 border-blue-2 shadow-lg"
+      />
+    ),
   },
 ];
 
@@ -182,7 +235,9 @@ export default function Home() {
       <div className="mt-20 px-10 text-center">
         <h2 className="font-alt text-6xl mb-16">{"Timeline"}</h2>
         <Suspense fallback="Loading...">
-          <DropsTimeline />
+          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+            <DropsTimeline />
+          </motion.div>
         </Suspense>
       </div>
       <Footer />
@@ -192,13 +247,17 @@ export default function Home() {
 
 type HeroTileProps = {
   title: string;
-  desc: string;
+  desc: string | ReactNode;
   Illustration: React.FC<{}>;
   isComingSoon?: boolean;
 };
 
 const HeroTile = (props: HeroTileProps) => (
-  <div className="relative text-xl border border-blue-2 border-opacity-20 rounded-lg bg-blue-2 bg-opacity-5 p-8 glass shadow-md">
+  <motion.div
+    initial={{ opacity: 0 }}
+    whileInView={{ opacity: 1 }}
+    className="relative text-xl border border-blue-2 border-opacity-20 rounded-lg bg-blue-2 bg-opacity-5 p-8 glass shadow-md"
+  >
     {props.isComingSoon && (
       <div className="absolute right-0 px-4 py-2 top-4 rounded-l-lg leading-none font-alt uppercase tracking-widest bg-blue-2 bg-opacity-20 text-orange-1">
         {"🚧 Coming soon"}
@@ -209,5 +268,5 @@ const HeroTile = (props: HeroTileProps) => (
     </div>
     <div className="text-4xl font-alt text-orange-1">{props.title}</div>
     <div>{props.desc}</div>
-  </div>
+  </motion.div>
 );
