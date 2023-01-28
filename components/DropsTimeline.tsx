@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { fetchRewards, QuirkReward } from "../client-api";
 import Collapse from "./Collapse";
 import CountDown from "./CountDown";
+import CurrencyIcon from "./CurrencyIcon";
 import DistributionPie from "./DistributionPie";
 import OnlyWeb from "./OnlyWeb";
 
@@ -134,6 +135,9 @@ const DropsTimeline = () => {
             <EventContainer key={event.id} event={event} isFirst={isFirst} isLast={isLast}>
               {isPast ? (
                 <div className="relative">
+                  <div className="absolute left-6 top-[55px]">
+                    <CurrencyIcon className="max-h-[50px] max-w-[50px]" ticker={reward.currency} />
+                  </div>
                   <div className="py-8">
                     <div className="text-center mb-14">
                       <div className="font-bold text-2xl">
