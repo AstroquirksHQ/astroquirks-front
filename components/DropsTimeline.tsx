@@ -6,9 +6,9 @@ import { useQuery } from "react-query";
 
 import { fetchRewards, QuirkReward } from "../client-api";
 import Collapse from "./Collapse";
-import CountDown from "./CountDown";
 import CurrencyIcon from "./CurrencyIcon";
 import DistributionPie from "./DistributionPie";
+import NextAirdropCounter from "./NextAirdropCounter";
 import OnlyWeb from "./OnlyWeb";
 
 type TimelineBaseEvent = {
@@ -174,7 +174,7 @@ const DropsTimeline = () => {
                   <div className="my-8">
                     <span className="bg-blue-5 p-4 rounded-xl bg-opacity-40 text-[#fff] font-bold border border-blue-2 border-opacity-10 shadow-lg">
                       <OnlyWeb>
-                        <CountDown untilDate={new Date(reward.date)} />
+                        <NextAirdropCounter />
                       </OnlyWeb>
                     </span>
                   </div>

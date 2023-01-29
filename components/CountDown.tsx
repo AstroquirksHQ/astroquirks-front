@@ -7,10 +7,11 @@ import {
   differenceInMinutes,
   differenceInSeconds,
 } from "date-fns";
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 
 type Props = {
   untilDate: Date;
+  fallback: ReactNode;
 };
 
 type DateDiff = {
@@ -20,7 +21,7 @@ type DateDiff = {
   sec: number;
 };
 
-const getDiff = (until: Date): DateDiff => {
+const getDiff = (until: Date): DateDiff | null => {
   let now = new Date();
   const daysDiff = Math.floor(differenceInDays(until, now));
   now = addDays(now, daysDiff);
@@ -29,16 +30,18 @@ const getDiff = (until: Date): DateDiff => {
   const minDiff = Math.floor(differenceInMinutes(until, now));
   now = addMinutes(now, minDiff);
   const secDiff = Math.floor(differenceInSeconds(until, now));
-  return {
+  const diff = {
     days: daysDiff,
     hours: hoursDiff,
     min: minDiff,
     sec: secDiff,
   };
+  const isPast = Object.values(diff).some((n) => n < 0);
+  return isPast ? null : diff;
 };
 
 const CountDown = (props: Props) => {
-  const { untilDate } = props;
+  const { untilDate, fallback } = props;
   const [, setNonce] = useState(0);
   const diff = getDiff(untilDate);
   useEffect(() => {
@@ -47,6 +50,9 @@ const CountDown = (props: Props) => {
     }, 1e3);
     return () => clearInterval(iv);
   }, []);
+  if (!diff) {
+    return <>{fallback}</>;
+  }
   return <>{`${diff.days} days + ${diff.hours}h ${diff.min}min ${diff.sec}s`}</>;
 };
 

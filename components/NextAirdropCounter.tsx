@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 
 import { fetchRewards } from "../client-api";
+import CoinsDrop from "./CoinsDrop";
 import CountDown from "./CountDown";
 
 const NextAirdropCounter = () => {
@@ -10,7 +11,14 @@ const NextAirdropCounter = () => {
   if (!rewardsQuery.data) return null;
   const nextAirdrop = rewardsQuery.data.quirk_rewards[0];
   if (!nextAirdrop) return null;
-  return <CountDown untilDate={new Date(nextAirdrop.date)} />;
+  const date = new Date(nextAirdrop.date);
+  const fallback = (
+    <div className="inline-flex relative">
+      <CoinsDrop />
+      <span className="relative">{"in progress..."}</span>
+    </div>
+  );
+  return <CountDown fallback={fallback} untilDate={date} />;
 };
 
 export default NextAirdropCounter;
