@@ -1,7 +1,7 @@
 const REWARDS_URL = "https://cdn.jsdelivr.net/gh/AstroquirksHQ/quirky_rewards/data.json";
 
 type QuirkRewardSnapshotItem = {
-  address: "osmo17vz8hvg96lddwawdfygvu89ua4v7qgd6p3m9ry";
+  address: string;
   amount: string;
   share: string;
   restaked: string;
