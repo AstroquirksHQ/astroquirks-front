@@ -152,6 +152,7 @@ export default function Home() {
           <div
             className={`
               font-alt leading-none whitespace-nowrap text-orange-3
+              select-none
               text-[50px]
               md:text-[70px]
               xl:text-[100px]
