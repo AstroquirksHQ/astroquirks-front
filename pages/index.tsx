@@ -6,7 +6,7 @@ import { FiExternalLink } from "react-icons/fi";
 
 import DropsTimeline from "../components/DropsTimeline";
 import Footer from "../components/Footer";
-import InteractiveHeart from "../components/InteractiveHeart";
+// import InteractiveHeart from "../components/InteractiveHeart";
 import NextAirdropCounter from "../components/NextAirdropCounter";
 
 // public/img/1-rocket.webp
