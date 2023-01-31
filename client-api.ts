@@ -1,4 +1,4 @@
-const REWARDS_URL = "https://cdn.jsdelivr.net/gh/AstroquirksHQ/quirky_rewards/data.json";
+const REWARDS_URL = "https://raw.githubusercontent.com/AstroquirksHQ/quirky_rewards/main/data.json";
 
 type QuirkRewardSnapshotItem = {
   address: string;
