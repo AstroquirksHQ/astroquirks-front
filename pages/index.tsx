@@ -6,7 +6,7 @@ import { FiExternalLink } from "react-icons/fi";
 
 import DropsTimeline from "../components/DropsTimeline";
 import Footer from "../components/Footer";
-// import InteractiveHeart from "../components/InteractiveHeart";
+import InteractiveHeart from "../components/InteractiveHeart";
 import NextAirdropCounter from "../components/NextAirdropCounter";
 
 // public/img/1-rocket.webp
@@ -166,7 +166,9 @@ export default function Home() {
             <span className="text-blue-2">{"is "}</span>
             <span className="text-orange-1 z-10 relative">
               {"CARING"}
-              <div className="absolute -top-[15px] -right-[25px]"></div>
+              <div className="absolute -top-[15px] -right-[25px]">
+                <InteractiveHeart />
+              </div>
             </span>
             <span className="text-blue-2">{"."}</span>
           </div>

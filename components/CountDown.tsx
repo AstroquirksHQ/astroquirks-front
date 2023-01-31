@@ -8,6 +8,7 @@ import {
   differenceInSeconds,
 } from "date-fns";
 import { ReactNode, useEffect, useState } from "react";
+import OnlyWeb from "./OnlyWeb";
 
 type Props = {
   untilDate: Date;
@@ -53,7 +54,7 @@ const CountDown = (props: Props) => {
   if (!diff) {
     return <>{fallback}</>;
   }
-  return <>{`${diff.days} days + ${diff.hours}h ${diff.min}min ${diff.sec}s`}</>;
+  return <OnlyWeb>{`${diff.days} days + ${diff.hours}h ${diff.min}min ${diff.sec}s`}</OnlyWeb>;
 };
 
 export default CountDown;
