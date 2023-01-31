@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode, Suspense } from "react";
+import { ReactNode } from "react";
 import { FiExternalLink } from "react-icons/fi";
 
 import DropsTimeline from "../components/DropsTimeline";
@@ -235,11 +235,9 @@ export default function Home() {
       </div>
       <div className="mt-20 px-10 text-center">
         <h2 className="font-alt text-6xl mb-16">{"Timeline"}</h2>
-        <Suspense fallback="Loading...">
-          <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
-            <DropsTimeline />
-          </motion.div>
-        </Suspense>
+        <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}>
+          <DropsTimeline />
+        </motion.div>
       </div>
       <Footer />
     </div>

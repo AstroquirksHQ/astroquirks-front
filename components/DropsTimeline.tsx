@@ -87,8 +87,9 @@ const EventContainer = ({
   );
 };
 
-const useBuildEvents = ({ rewards }: { rewards: QuirkReward[] }): TimelineEvent[] => {
-  const events = useMemo<TimelineEvent[]>(() => {
+const useBuildEvents = ({ rewards }: { rewards: QuirkReward[] | void }): TimelineEvent[] | null => {
+  const events = useMemo<TimelineEvent[] | null>(() => {
+    if (!rewards) return null;
     const events: TimelineEvent[] = [
       ...rewards.map(
         (reward): TimelineRewardEvent => ({
@@ -115,10 +116,11 @@ const useBuildEvents = ({ rewards }: { rewards: QuirkReward[] }): TimelineEvent[
 };
 
 const DropsTimeline = () => {
-  const { data } = useQuery("rewards", fetchRewards, { suspense: true });
-  const rewards = data?.quirk_rewards!;
+  const { data } = useQuery("rewards", fetchRewards);
+  const rewards = data?.quirk_rewards;
 
   const events = useBuildEvents({ rewards });
+  if (!events) return null;
 
   return (
     <div className="flex flex-col ml-6 sm:ml-0 sm:items-center text-left">
