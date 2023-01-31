@@ -166,9 +166,7 @@ export default function Home() {
             <span className="text-blue-2">{"is "}</span>
             <span className="text-orange-1 z-10 relative">
               {"CARING"}
-              <div className="absolute -top-[15px] -right-[25px]">
-                <InteractiveHeart />
-              </div>
+              <div className="absolute -top-[15px] -right-[25px]"></div>
             </span>
             <span className="text-blue-2">{"."}</span>
           </div>
