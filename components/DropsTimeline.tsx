@@ -138,7 +138,10 @@ const DropsTimeline = () => {
               {isPast ? (
                 <div className="relative">
                   <div className="absolute left-6 top-[55px]">
-                    <CurrencyIcon className="max-h-[50px] max-w-[50px]" ticker={reward.currency} />
+                    <CurrencyIcon
+                      className="max-h-[50px] max-w-[50px] invisible sm:visible"
+                      ticker={reward.currency}
+                    />
                   </div>
                   <div className="py-8">
                     <div className="text-center mb-14">
