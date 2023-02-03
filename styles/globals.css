@@ -20,6 +20,10 @@ a {
   @apply focus-visible:ring-2 focus-visible:ring-blue-2 focus-visible:ring-opacity-30 outline-none;
 }
 
+.btn {
+  @apply bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold hover:text-orange-1 active:bg-blue-5;
+}
+
 .link {
   @apply underline hover:text-[#fff] underline-offset-4;
 }
@@ -48,4 +52,8 @@ a {
     );
   background-position: 0 0, 10px 10px;
   background-size: 20px 20px;
+}
+
+.btn {
+  @apply bg-blue-5 px-4 py-1 rounded hover:underline bg-opacity-50 hover:bg-opacity-70 active:bg-opacity-100;
 }
