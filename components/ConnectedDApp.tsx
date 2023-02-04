@@ -207,14 +207,14 @@ const ConnectedDApp = (props: Props) => {
                       })}
                     </tbody>
                   </table>
-                ) : (
+                ) : astroquirksDelegation ? (
                   <div>
                     <h2 className="font-alt opacity-70 text-2xl text-orange-2">
                       {"No other delegations."}
                     </h2>
                     <p>{"Congratz, you are an Astroquirks maximalist."}</p>
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
           )}
