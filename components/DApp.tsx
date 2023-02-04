@@ -1,58 +1,15 @@
-import { WalletManager } from "@cosmos-kit/core";
+import { useWallet } from "@cosmos-kit/react";
 import axios from "axios";
 import BigNumber from "bignumber.js";
+import { motion } from "framer-motion";
 import invariant from "invariant";
 import { orderBy } from "lodash";
 import { useMutation, useQuery } from "react-query";
 
-type Props = {
-  wallet: WalletManager;
-};
+import Button from "./Button";
 
-type Delegation = {
-  delegation: {
-    delegator_address: string;
-    validator_address: string;
-    shares: string;
-  };
-  balance: {
-    denom: string;
-    amount: string;
-  };
-};
-
-type DelegationsResponse = {
-  delegation_responses: Delegation[];
-  pagination: {
-    next_key: null;
-    total: "1";
-  };
-};
-
-// {
-//     "account": {
-//         "@type": "/cosmos.auth.v1beta1.BaseAccount",
-//         "address": "osmo1u96xkp0rth26p3tr69hnzn9vl7kysmzmxh5hja",
-//         "pub_key": {
-//             "@type": "/cosmos.crypto.secp256k1.PubKey",
-//             "key": "A1P/SrDXp7GJN7dEFB0GQWm82q5kQfb4bb7eTO22HNXw"
-//         },
-//         "account_number": "37856",
-//         "sequence": "23"
-//     }
-// }
-
-const baseURL = "https://osmosis-mainnet-rpc.allthatnode.com:1317";
-const network = axios.create({ baseURL });
-const ASTROQUIRKS_ADDRESS = "osmovaloper1udp8gef365zcqhlxuepewrxuep9thjanuhxcaw";
-// const CHAIN_ID = "osmosis-1";
-
-const formatUOSMO = (uosmo: string) => {
-  return BigNumber(uosmo).times(BigNumber(10).pow(-6)).toFixed(2);
-};
-
-const ConnectedDApp = (props: Props) => {
-  const { wallet } = props;
+const DApp = () => {
+  const wallet = useWallet();
   const { data: account } = wallet;
   invariant(account, "No account");
 
@@ -133,10 +90,7 @@ const ConnectedDApp = (props: Props) => {
   // f"{self.url}/cosmos/staking/v1beta1/validators/{validator_address}"
 
   return (
-    <div className="relative">
-      <button className="absolute top-1 right-1 btn" onClick={() => wallet.disconnect()}>
-        {"Disconnect"}
-      </button>
+    <div className="max-w-[800px] mx-auto mt-[100px]">
       <div>
         <strong>{"Connected as: "}</strong>
         <span className="text-orange-2">{account.username}</span>
@@ -150,18 +104,20 @@ const ConnectedDApp = (props: Props) => {
         : delegationsQuery.data && (
             <div>
               {astroquirksDelegation ? (
-                <div className="mt-8 bg-blue-2 bg-opacity-5 border-blue-2 border-opacity-30 border text-xl p-8 rounded">
-                  <strong>{`🎉 You delegate `}</strong>
-                  <strong className="text-orange-2">{`${formatUOSMO(
-                    astroquirksDelegation.balance.amount,
-                  )} ${astroquirksDelegation.balance.denom}`}</strong>
-                  <strong>{` with us!`}</strong>
-                  <button
-                    className="btn text-sm ml-4"
+                <div className="mt-8 bg-blue-2 bg-opacity-5 border-blue-2 border-opacity-30 border p-8 rounded space-y-4">
+                  <div className="text-xl">
+                    <strong>{`🎉 You delegate `}</strong>
+                    <strong className="text-orange-2">{`${formatUOSMO(
+                      astroquirksDelegation.balance.amount,
+                    )} ${astroquirksDelegation.balance.denom}`}</strong>
+                    <strong>{` with us!`}</strong>
+                  </div>
+                  <Button
+                    isLoading={delegateMutation.isLoading}
                     onClick={() => delegateMutation.mutate(ASTROQUIRKS_ADDRESS)}
                   >
                     {"Delegate more"}
-                  </button>
+                  </Button>
                 </div>
               ) : (
                 <div className="mt-8 bg-blue-2 bg-opacity-5 border-blue-2 border-opacity-30 border text-xl p-8 rounded">
@@ -223,4 +179,72 @@ const ConnectedDApp = (props: Props) => {
   );
 };
 
-export default ConnectedDApp;
+type Delegation = {
+  delegation: {
+    delegator_address: string;
+    validator_address: string;
+    shares: string;
+  };
+  balance: {
+    denom: string;
+    amount: string;
+  };
+};
+
+type DelegationsResponse = {
+  delegation_responses: Delegation[];
+  pagination: {
+    next_key: null;
+    total: "1";
+  };
+};
+
+// {
+//     "account": {
+//         "@type": "/cosmos.auth.v1beta1.BaseAccount",
+//         "address": "osmo1u96xkp0rth26p3tr69hnzn9vl7kysmzmxh5hja",
+//         "pub_key": {
+//             "@type": "/cosmos.crypto.secp256k1.PubKey",
+//             "key": "A1P/SrDXp7GJN7dEFB0GQWm82q5kQfb4bb7eTO22HNXw"
+//         },
+//         "account_number": "37856",
+//         "sequence": "23"
+//     }
+// }
+
+const baseURL = "https://osmosis-mainnet-rpc.allthatnode.com:1317";
+const network = axios.create({ baseURL });
+const ASTROQUIRKS_ADDRESS = "osmovaloper1udp8gef365zcqhlxuepewrxuep9thjanuhxcaw";
+// const CHAIN_ID = "osmosis-1";
+
+const formatUOSMO = (uosmo: string) => {
+  return BigNumber(uosmo).times(BigNumber(10).pow(-6)).toFixed(2);
+};
+
+const DAppWrapper = () => {
+  const wallet = useWallet();
+  const { data: account } = wallet;
+  const show = !!account;
+  return (
+    <motion.div
+      className={`${
+        show ? "" : "pointer-events-none"
+      } fixed top-[85px] left-0 right-0 bottom-0 p-8 flex flex-col`}
+      initial={false}
+      animate={show ? "visible" : "invisible"}
+      variants={{
+        visible: {
+          scale: 1,
+          opacity: 1,
+        },
+        invisible: {
+          opacity: 0,
+        },
+      }}
+    >
+      {show ? <DApp /> : null}
+    </motion.div>
+  );
+};
+
+export default DAppWrapper;

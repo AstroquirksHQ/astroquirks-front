@@ -23,6 +23,7 @@ module.exports = {
       animation: {
         orbit: "orbit 3s linear infinite",
         "orbit-reverse": "orbit 3s linear reverse infinite",
+        "spin-fast": "spin 500ms linear infinite",
       },
       keyframes: {
         orbit: {

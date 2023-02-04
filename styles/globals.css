@@ -20,10 +20,6 @@ a {
   @apply focus-visible:ring-2 focus-visible:ring-blue-2 focus-visible:ring-opacity-30 outline-none;
 }
 
-.btn {
-  @apply bg-blue-2 bg-opacity-10 rounded px-8 py-4 font-bold;
-}
-
 .link {
   @apply underline hover:text-[#fff] underline-offset-4;
 }
@@ -55,13 +51,13 @@ a {
 }
 
 .btn {
-  @apply bg-blue-5 px-4 py-1 rounded bg-opacity-50;
+  @apply bg-blue-2 border border-blue-2 border-opacity-[0.1] font-bold rounded bg-opacity-10 shadow-md shadow-[rgba(0,0,0,0.1)];
 }
 
 .btn:not(:disabled) {
-  @apply hover:underline hover:bg-opacity-70 active:bg-opacity-100 hover:text-orange-1 active:bg-blue-5;
+  @apply hover:border-opacity-20 hover:bg-opacity-[0.15] active:bg-opacity-[0.1] hover:text-orange-1;
 }
 
 .btn:disabled {
-  @apply opacity-50 cursor-not-allowed hover:bg-opacity-50;
+  @apply opacity-50 cursor-not-allowed;
 }
