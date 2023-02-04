@@ -197,6 +197,7 @@ const ConnectedDApp = (props: Props) => {
                             <td className="text-right">
                               <button
                                 className="btn"
+                                disabled={redelegateMutation.isLoading}
                                 onClick={() => redelegateMutation.mutate(delegation)}
                               >
                                 {"Redelegate"}
