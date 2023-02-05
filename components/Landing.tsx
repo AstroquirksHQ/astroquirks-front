@@ -3,9 +3,11 @@ import Image from "next/image";
 import { ReactNode } from "react";
 import { FiExternalLink } from "react-icons/fi";
 
+import ConnectKeplr from "./ConnectKeplr";
 import DropsTimeline from "./DropsTimeline";
 import Footer from "./Footer";
 import InteractiveHeart from "./InteractiveHeart";
+import Logo from "./Logo";
 import NextAirdropCounter from "./NextAirdropCounter";
 
 const tileData: HeroTileProps[] = [
@@ -86,6 +88,10 @@ const tileData: HeroTileProps[] = [
 const Landing = ({ show }: { show: boolean }) => {
   return (
     <motion.div animate={{ opacity: show ? 1 : 0 }} className={show ? "" : "pointer-events-none"}>
+      <div className="px-8 pt-8 mb-4 flex-col items-center md:flex-row space-y-6 md:space-y-0 flex justify-between">
+        <Logo />
+        <ConnectKeplr />
+      </div>
       <div className="flex flex-col space-y-4 items-center justify-center px-4 pt-8">
         <div className="bg-[#111] border border-blue-2 border-opacity-50 rounded-lg shadow-lg border-dashed bg-opacity-70 text-[#fff] text-xl p-4 text-center sm:text-left">
           <Image

@@ -4,7 +4,7 @@
 
 html,
 body {
-  @apply bg-gradient-to-b from-blue-1 to-blue-5 text-blue-2 font-display;
+  @apply min-h-full bg-gradient-to-b from-blue-1 to-blue-5 text-blue-2 font-display;
 }
 
 button {
@@ -60,4 +60,12 @@ a {
 
 .btn:disabled {
   @apply opacity-50 cursor-not-allowed;
+}
+
+.text-input {
+  @apply block w-full bg-blue-5 bg-opacity-50 border-2 rounded border-blue-2 border-opacity-20 p-4 font-[monospace] font-semibold text-lg outline-none focus:ring focus:ring-blue-2 focus:ring-opacity-10 focus:border-opacity-50;
+}
+
+.text-input:disabled {
+  @apply cursor-not-allowed opacity-70;
 }

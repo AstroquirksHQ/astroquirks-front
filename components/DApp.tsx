@@ -7,6 +7,7 @@ import { orderBy } from "lodash";
 import { useMutation, useQuery } from "react-query";
 
 import Button from "./Button";
+import ConnectKeplr from "./ConnectKeplr";
 
 const DApp = () => {
   const wallet = useWallet();
@@ -242,7 +243,14 @@ const DAppWrapper = () => {
         },
       }}
     >
-      {show ? <DApp /> : null}
+      {show ? (
+        <>
+          <div className="fixed top-4 right-4">
+            <ConnectKeplr />
+          </div>
+          <DApp />
+        </>
+      ) : null}
     </motion.div>
   );
 };

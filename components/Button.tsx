@@ -16,7 +16,7 @@ const Button = (props: Props) => {
   return (
     <button
       className="btn relative"
-      role="button"
+      type="button"
       disabled={isLoading || disabled}
       {...p}
       onMouseEnter={() => setHovered(true)}
@@ -24,15 +24,21 @@ const Button = (props: Props) => {
     >
       <div className="px-8 py-4 overflow-hidden">
         <motion.div
+          initial={false}
           animate={{ y: isLoading ? -10 : 0, opacity: isLoading ? 0 : 1 }}
           transition={{ duration: 0.1, delay: isLoading ? 0 : 0.25 }}
         >
-          <motion.div animate={{ x: isHovered ? -10 : 0 }} transition={{ delay: 0.1 }}>
+          <motion.div
+            initial={false}
+            animate={{ x: isHovered ? -10 : 0 }}
+            transition={{ delay: 0.1 }}
+          >
             {children}
           </motion.div>
         </motion.div>
         <div className="absolute top-0 right-0 pr-3 bottom-0 overflow-hidden flex items-center justify-center">
           <motion.div
+            initial={false}
             animate={{
               x: isHovered || isLoading ? 0 : -30,
               opacity: isHovered && !isLoading ? 1 : 0,
@@ -44,6 +50,7 @@ const Button = (props: Props) => {
         <div className="absolute top-0 left-0 right-0 bottom-0 overflow-hidden flex items-center justify-center">
           <motion.div
             transition={{ delay: isLoading ? 0.1 : 0, duration: 0.1 }}
+            initial={false}
             animate={{
               y: isLoading ? 0 : 10,
               opacity: isLoading ? 1 : 0,
