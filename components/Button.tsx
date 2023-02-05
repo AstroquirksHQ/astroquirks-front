@@ -1,26 +1,51 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ButtonHTMLAttributes, DetailedHTMLProps, useState } from "react";
+import {
+  ButtonHTMLAttributes,
+  DetailedHTMLProps,
+  FC,
+  MouseEvent,
+  MouseEventHandler,
+  useState,
+} from "react";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
 import { FiChevronRight } from "react-icons/fi";
 
-export type Props = DetailedHTMLProps<
-  ButtonHTMLAttributes<HTMLButtonElement>,
-  HTMLButtonElement
+type ButtonVariant = "discret" | "neutral";
+
+export type Props = Omit<
+  DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>,
+  "onClick"
 > & {
   isLoading?: boolean;
+  Icon?: FC<{}>;
   href?: string;
+  variant?: ButtonVariant;
+  noLayout?: boolean;
+  noAnim?: boolean;
+  onClick?: (e: MouseEvent) => void | Promise<void>;
 };
 
 const Button = (props: Props) => {
-  const { children, disabled, isLoading: isPropLoading, href, ...p } = props;
+  const {
+    children,
+    disabled,
+    Icon,
+    isLoading: isPropLoading,
+    href,
+    variant = "neutral",
+    noLayout,
+    noAnim,
+    onClick,
+    ...p
+  } = props;
   const [isHovered, setHovered] = useState(false);
   const [isLocalLoading, setLocalLoading] = useState(false);
 
   const isLoading = isPropLoading || isLocalLoading;
 
   const inner = (
-    <div className="px-8 py-4 overflow-hidden">
+    <div className={`${noLayout ? "" : "px-8 py-4"} overflow-hidden`}>
       <motion.div
         initial={false}
         animate={{ y: isLoading ? -10 : 0, opacity: isLoading ? 0 : 1 }}
@@ -28,9 +53,15 @@ const Button = (props: Props) => {
       >
         <motion.div
           initial={false}
-          animate={{ x: isHovered ? -10 : 0 }}
+          animate={{ x: isHovered ? -13 : 0 }}
           transition={{ delay: 0.1 }}
+          className="flex items-center"
         >
+          {Icon && (
+            <div className="-ml-2 mr-2">
+              <Icon />
+            </div>
+          )}
           {children}
         </motion.div>
       </motion.div>
@@ -60,13 +91,29 @@ const Button = (props: Props) => {
     </div>
   );
 
+  const handleClick: MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (onClick) {
+      const res = onClick(e);
+      const isPromise = !!res && "then" in res;
+      if (isPromise) {
+        setLocalLoading(true);
+        res.finally(() => setLocalLoading(false));
+      }
+    }
+  };
+
+  const className = `
+    btn relative
+    ${variant === "neutral" ? "btn-neutral" : variant === "discret" ? "btn-discret" : ""}
+  `;
+
   if (href) {
     return (
       <Link
         href={href}
-        className={`btn relative ${isLoading ? "disabled" : ""}`}
-        onMouseEnter={() => setHovered(true)}
-        onMouseLeave={() => setHovered(false)}
+        className={className}
+        onMouseEnter={noAnim ? () => {} : () => setHovered(true)}
+        onMouseLeave={noAnim ? () => {} : () => setHovered(false)}
         onClick={() => setLocalLoading(true)}
       >
         {inner}
@@ -76,12 +123,13 @@ const Button = (props: Props) => {
 
   return (
     <button
-      className="btn relative"
+      className={className}
       type="button"
       disabled={isLoading || disabled}
       {...p}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
+      onMouseEnter={noAnim ? () => {} : () => setHovered(true)}
+      onMouseLeave={noAnim ? () => {} : () => setHovered(false)}
+      onClick={handleClick}
     >
       {inner}
     </button>

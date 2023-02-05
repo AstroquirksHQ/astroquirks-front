@@ -1,26 +1,8 @@
-import { useWallet } from "@cosmos-kit/react";
-import invariant from "invariant";
 import { FormEventHandler, useState } from "react";
 import { useMutation } from "react-query";
 
 import Button from "./Button";
 import TextInput, { NumberInput, Textarea } from "./TextInput";
-
-const MultisigCreateTx = () => {
-  const wallet = useWallet();
-  const [isCreating, setCreating] = useState(false);
-  const { data: account } = wallet;
-  invariant(account, "No account");
-  return (
-    <div className="p-8">
-      {isCreating ? (
-        <CreateForm onClose={() => setCreating(false)} />
-      ) : (
-        <Button onClick={() => setCreating(true)}>{"Create multisig"}</Button>
-      )}
-    </div>
-  );
-};
 
 // prettier-ignore
 const DUMMY_RAW_TX = JSON.stringify({ body: { messages: [{ '@type': '/cosmos.bank.v1beta1.MsgSend', from_address: 'stars1kekv8xqg7aj628l8av4d95cm79y8lw3c5lr28x', to_address: 'stars1u96xkp0rth26p3tr69hnzn9vl7kysmzm6ss607', amount: [{ amount: '1000000', denom: 'ustars' }] }], memo: '', timeout_height: '0', extension_options: [], non_critical_extension_options: [] }, auth_info: { signer_infos: [], fee: { amount: [{ amount: '0', denom: 'ustars' }], gas_limit: '200000', payer: '', granter: '' } }, signatures: [] }, null, 2)
@@ -36,9 +18,8 @@ type Transaction = {
   signatures: Sig[];
 };
 
-const CreateForm = ({ onClose }: { onClose(): void }) => {
+const MultisigCreateTx = ({ onClose }: { onClose(): void }) => {
   const createMutation = useMutation(async (tx: Transaction) => {
-    console.log(tx);
     await new Promise((r) => setTimeout(r, 2e3));
   });
 
@@ -75,8 +56,8 @@ const CreateForm = ({ onClose }: { onClose(): void }) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="space-y-6">
-        <div>
+      <div className="space-y-8">
+        <div className="space-y-2">
           <label htmlFor="raw-tx" className="font-semibold opacity-60">
             {"Raw tx"}
           </label>
@@ -84,7 +65,7 @@ const CreateForm = ({ onClose }: { onClose(): void }) => {
         </div>
         {payload.signatures.map((sig, i) => {
           return (
-            <div key={i}>
+            <div key={i} className="space-y-2">
               <label htmlFor={`adr${i + 1}`} className="font-semibold opacity-60">{`Address ${
                 i + 1
               }`}</label>
@@ -92,6 +73,7 @@ const CreateForm = ({ onClose }: { onClose(): void }) => {
                 disabled={createMutation.isLoading}
                 id={`adr${i + 1}`}
                 value={sig.address}
+                placeholder="e.g: osmo12345abcde..."
                 onChange={(address) => {
                   const newSig = { ...sig, address };
                   const newSigs = [...payload.signatures];

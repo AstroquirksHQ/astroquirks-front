@@ -51,7 +51,11 @@ a {
 }
 
 .btn {
-  @apply bg-blue-2 border border-blue-2 border-opacity-[0.1] font-bold rounded bg-opacity-10 shadow-md shadow-[rgba(0,0,0,0.1)];
+  @apply border border-blue-2 border-opacity-[0.1] font-bold rounded shadow-md shadow-[rgba(0,0,0,0.1)];
+}
+
+.btn-neutral {
+  @apply bg-blue-2 bg-opacity-10;
 }
 
 .btn:not(:disabled):not(.disabled) {
@@ -64,7 +68,13 @@ a {
 }
 
 .text-input {
-  @apply block w-full bg-blue-5 bg-opacity-50 border-2 rounded border-blue-2 border-opacity-20 p-4 font-[monospace] font-semibold text-lg outline-none focus:ring focus:ring-blue-2 focus:ring-opacity-10 focus:border-opacity-50;
+  @apply font-[monospace] text-white text-opacity-70 block w-full p-4 bg-blue-2 border border-blue-2 border-opacity-[0.1] font-bold rounded-lg bg-opacity-10 shadow-md shadow-[rgba(0,0,0,0.1)];
+  @apply placeholder:text-white placeholder:text-opacity-20;
+  @apply focus:bg-blue-5 p-4 font-semibold text-lg outline-none focus:ring focus:ring-blue-2 focus:ring-opacity-10 focus:border-opacity-50;
+}
+
+.text-input:hover:not(:disabled):not(:focus) {
+  @apply transition-colors bg-opacity-[0.15];
 }
 
 .text-input:disabled {

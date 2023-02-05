@@ -1,5 +1,6 @@
 import { useWallet } from "@cosmos-kit/react";
 import Image from "next/image";
+import { FiPower } from "react-icons/fi";
 
 import Button, { Props as ButtonProps } from "./Button";
 
@@ -9,9 +10,25 @@ const ConnectKeplr = () => {
   return (
     <>
       {isLoggedIn ? (
-        <Button onClick={wallet.disconnect}>{"Log-out"}</Button>
+        <Button
+          noLayout
+          noAnim
+          onClick={async () => {
+            await new Promise((r) => setTimeout(r, 300));
+            wallet.disconnect();
+          }}
+        >
+          <div className="p-4">
+            <FiPower />
+          </div>
+        </Button>
       ) : (
-        <LoginButton onClick={wallet.connect} />
+        <LoginButton
+          onClick={async () => {
+            await new Promise((r) => setTimeout(r, 300));
+            wallet.connect();
+          }}
+        />
       )}
     </>
   );

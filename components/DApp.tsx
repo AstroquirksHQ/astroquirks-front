@@ -5,8 +5,10 @@ import invariant from "invariant";
 import { orderBy } from "lodash";
 import { useMutation, useQuery } from "react-query";
 
-import Button from "./Button";
+import Card from "./Card";
 import ConnectKeplr from "./ConnectKeplr";
+import CopyValue from "./CopyValue";
+import DAppLayout from "./DAppLayout";
 import Logo from "./Logo";
 
 const DApp = () => {
@@ -32,23 +34,23 @@ const DApp = () => {
   const otherDelegations =
     delegationsQuery.data?.delegation_responses.filter((d) => d !== astroquirksDelegation) || [];
 
-  const delegateMutation = useMutation(async (validator: string) => {
-    const delegator = account.address!;
-    await wallet.signAndBroadcast(
-      [
-        {
-          typeUrl: "/cosmos.staking.v1beta1.MsgDelegate",
-          value: {
-            amount: { amount: "1000", denom: "uosmo" },
-            delegatorAddress: delegator,
-            validatorAddress: validator,
-          },
-        },
-      ],
-      // FIXME see how we can have better fees estimation
-      { gas: "300000", amount: [{ denom: "uosmo", amount: "7000" }] },
-    );
-  });
+  // const delegateMutation = useMutation(async (validator: string) => {
+  //   const delegator = account.address!;
+  //   await wallet.signAndBroadcast(
+  //     [
+  //       {
+  //         typeUrl: "/cosmos.staking.v1beta1.MsgDelegate",
+  //         value: {
+  //           amount: { amount: "1000", denom: "uosmo" },
+  //           delegatorAddress: delegator,
+  //           validatorAddress: validator,
+  //         },
+  //       },
+  //     ],
+  //     // FIXME see how we can have better fees estimation
+  //     { gas: "300000", amount: [{ denom: "uosmo", amount: "7000" }] },
+  //   );
+  // });
 
   const redelegateMutation = useMutation(async (delegation: Delegation) => {
     const delegator = account.address!;
@@ -91,35 +93,22 @@ const DApp = () => {
   // f"{self.url}/cosmos/staking/v1beta1/validators/{validator_address}"
 
   return (
-    <div className="min-h-screen">
-      <div className="p-4 flex justify-between mb-8">
-        <Logo />
-        <ConnectKeplr />
-      </div>
-      <div className="p-8 max-w-[800px] mx-auto">
-        <div className="bg-blue-2 bg-opacity-5 rounded shadow-md border border-blue-2 border-opacity-10 shadow-[rgba(0,0,0,0.1)]">
-          <div className="p-8">
-            <div className="flex items-center space-x-4">
-              <strong>{"Your address"}</strong>
-              <code className="px-1 rounded bg-blue-2 bg-opacity-10">{account.address}</code>
-            </div>
-          </div>
-          <hr className="opacity-10" />
-
-          {delegationsQuery.isLoading
-            ? "Loading delegations..."
-            : delegationsQuery.data && (
-                <>
-                  {astroquirksDelegation ? (
-                    <div className="p-8 space-y-4">
-                      <div className="text-xl">
-                        <strong>{`🎉 You delegate `}</strong>
-                        <strong className="text-orange-2">{`${formatUOSMO(
-                          astroquirksDelegation.balance.amount,
-                        )} ${astroquirksDelegation.balance.denom}`}</strong>
-                        <strong>{` with us!`}</strong>
-                      </div>
-                      {/*}
+    <DAppLayout account={account}>
+      <Card>
+        {delegationsQuery.isLoading
+          ? "Loading delegations..."
+          : delegationsQuery.data && (
+              <>
+                {astroquirksDelegation ? (
+                  <div className="p-8 space-y-4">
+                    <div className="text-xl">
+                      <strong>{`🎉 You delegate `}</strong>
+                      <strong className="text-orange-2">{`${formatUOSMO(
+                        astroquirksDelegation.balance.amount,
+                      )} ${astroquirksDelegation.balance.denom}`}</strong>
+                      <strong>{` with us!`}</strong>
+                    </div>
+                    {/*}
                       <Button
                         isLoading={delegateMutation.isLoading}
                         onClick={() => delegateMutation.mutate(ASTROQUIRKS_ADDRESS)}
@@ -127,68 +116,67 @@ const DApp = () => {
                         {"Delegate more"}
                       </Button>
                       {*/}
-                    </div>
-                  ) : (
-                    <div className="p-8">
-                      <strong>{"You don't delegate with Astroquirks"}</strong>
-                      {/*}
+                  </div>
+                ) : (
+                  <div className="p-8">
+                    <strong>{"You don't delegate with Astroquirks"}</strong>
+                    {/*}
                       <Button
                         onClick={() => delegateMutation.mutate(ASTROQUIRKS_ADDRESS)}
                       >
                         {"Start staking with us"}
                       </Button>
                       {*/}
-                    </div>
-                  )}
-                  <hr className="opacity-10" />
-                  <div className="p-8">
-                    {otherDelegations.length > 0 ? (
-                      <table className="w-full">
-                        <thead>
-                          <tr className="border-b border-opacity-20 border-blue-2">
-                            <th className="text-left">{"Validator"}</th>
-                            <th className="text-right">{"Amount"}</th>
-                            <th className="text-right"></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {otherDelegations.map((delegation) => {
-                            return (
-                              <tr key={delegation.delegation.validator_address}>
-                                <td className="max-w-[300px] truncate p-2">
-                                  {delegation.delegation.validator_address}
-                                </td>
-                                <td className="text-right p-2 whitespace-nowrap">
-                                  {delegation.balance.amount} {delegation.balance.denom}
-                                </td>
-                                <td className="text-right">
-                                  <button
-                                    className="btn"
-                                    disabled={redelegateMutation.isLoading}
-                                    onClick={() => redelegateMutation.mutate(delegation)}
-                                  >
-                                    {"Redelegate"}
-                                  </button>
-                                </td>
-                              </tr>
-                            );
-                          })}
-                        </tbody>
-                      </table>
-                    ) : astroquirksDelegation ? (
-                      <div>
-                        <h2 className="font-alt opacity-70 text-2xl text-orange-2">
-                          {"No other delegations."}
-                        </h2>
-                        <p>{"Congratz, you are an Astroquirks maximalist."}</p>
-                      </div>
-                    ) : null}
                   </div>
-                </>
-              )}
-        </div>
-      </div>
-    </div>
+                )}
+                <hr className="opacity-10" />
+                <div className="p-8">
+                  {otherDelegations.length > 0 ? (
+                    <table className="w-full">
+                      <thead>
+                        <tr className="border-b border-opacity-20 border-blue-2">
+                          <th className="text-left">{"Validator"}</th>
+                          <th className="text-right">{"Amount"}</th>
+                          <th className="text-right"></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {otherDelegations.map((delegation) => {
+                          return (
+                            <tr key={delegation.delegation.validator_address}>
+                              <td className="max-w-[300px] truncate p-2">
+                                {delegation.delegation.validator_address}
+                              </td>
+                              <td className="text-right p-2 whitespace-nowrap">
+                                {delegation.balance.amount} {delegation.balance.denom}
+                              </td>
+                              <td className="text-right">
+                                <button
+                                  className="btn"
+                                  disabled={redelegateMutation.isLoading}
+                                  onClick={() => redelegateMutation.mutate(delegation)}
+                                >
+                                  {"Redelegate"}
+                                </button>
+                              </td>
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
+                  ) : astroquirksDelegation ? (
+                    <div>
+                      <h2 className="font-alt opacity-70 text-2xl text-orange-2">
+                        {"No other delegations."}
+                      </h2>
+                      <p>{"Congratz, you are an Astroquirks maximalist."}</p>
+                    </div>
+                  ) : null}
+                </div>
+              </>
+            )}
+      </Card>
+    </DAppLayout>
   );
 };
 

@@ -1,33 +1,71 @@
+import { WalletData } from "@cosmos-kit/core";
 import { useWallet } from "@cosmos-kit/react";
+import axios from "axios";
+import { motion } from "framer-motion";
 import invariant from "invariant";
+import { useState } from "react";
+import { FiKey } from "react-icons/fi";
+import { useQuery } from "react-query";
 
+import Button from "./Button";
+import Card from "./Card";
 import ConnectKeplr from "./ConnectKeplr";
+import DAppLayout from "./DAppLayout";
 import Logo from "./Logo";
+import MultisigCreateKey from "./MultisigCreateKey";
 import MultisigCreateTx from "./MultisigCreateTx";
 
+type State = {
+  status: "idle" | "create-multisig" | "create-tx";
+};
+
+const network = axios.create({
+  baseURL: "http://135.181.118.58:5001",
+});
+
 const Multisig = () => {
+  const [state, setState] = useState<State>({
+    status: "idle",
+  });
+  const { status } = state;
   const wallet = useWallet();
+
   const { data: account } = wallet;
   invariant(account, "No account");
+
+  const multisigsQuery = useQuery("multisigs", async () => {
+    const res = await network.get(`/multisigs?operator_address=${account.address}`);
+  });
+
   return (
-    <div className="min-h-screen">
-      <div className="p-4 flex justify-between mb-8">
-        <Logo />
-        <ConnectKeplr />
-      </div>
-      <div className="p-8 max-w-[800px] mx-auto">
-        <div className="bg-blue-2 bg-opacity-5 rounded shadow-md border border-blue-2 border-opacity-10 shadow-[rgba(0,0,0,0.1)]">
-          <div className="p-8">
-            <div className="flex items-center space-x-4">
-              <strong>{"Your address"}</strong>
-              <code className="px-1 rounded bg-blue-2 bg-opacity-10">{account.address}</code>
-            </div>
-          </div>
+    <DAppLayout account={account}>
+      {status === "idle" ? (
+        <Card>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="p-8 text-center"
+          >
+            <Button
+              key="create-multi"
+              onClick={() => setState({ ...state, status: "create-multisig" })}
+              Icon={FiKey}
+            >
+              {"Create multisig"}
+            </Button>
+          </motion.div>
           <hr className="opacity-10" />
-          <MultisigCreateTx />
-        </div>
-      </div>
-    </div>
+          <div className="p-8">
+            <h2 className="font-semibold text-info-300 text-2xl leading-10">{"Multisigs"}</h2>
+            <p className="text-info-200">{"List of multisigs you are registered on."}</p>
+          </div>
+        </Card>
+      ) : status === "create-multisig" ? (
+        <MultisigCreateKey onClose={() => setState({ ...state, status: "idle" })} />
+      ) : status === "create-tx" ? (
+        <MultisigCreateTx onClose={() => setState({ ...state, status: "idle" })} />
+      ) : null}
+    </DAppLayout>
   );
 };
 
