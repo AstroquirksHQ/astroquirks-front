@@ -1,20 +1,20 @@
 import { useWallet } from "@cosmos-kit/react";
 import axios from "axios";
 import BigNumber from "bignumber.js";
-import { motion } from "framer-motion";
 import invariant from "invariant";
 import { orderBy } from "lodash";
 import { useMutation, useQuery } from "react-query";
 
 import Button from "./Button";
 import ConnectKeplr from "./ConnectKeplr";
+import Logo from "./Logo";
 
 const DApp = () => {
   const wallet = useWallet();
   const { data: account } = wallet;
   invariant(account, "No account");
 
-  const delegationsQuery = useQuery("delegations", () =>
+  const delegationsQuery = useQuery(["delegations", account.address], () =>
     network
       .get<DelegationsResponse>(`/cosmos/staking/v1beta1/delegations/${account.address}`)
       .then((d) => d.data)
@@ -91,91 +91,103 @@ const DApp = () => {
   // f"{self.url}/cosmos/staking/v1beta1/validators/{validator_address}"
 
   return (
-    <div className="max-w-[800px] mx-auto mt-[100px]">
-      <div>
-        <strong>{"Connected as: "}</strong>
-        <span className="text-orange-2">{account.username}</span>
+    <div className="min-h-screen">
+      <div className="p-4 flex justify-between mb-8">
+        <Logo />
+        <ConnectKeplr />
       </div>
-      <div>
-        <strong>{"Address: "}</strong>
-        <span className="text-orange-2">{account.address}</span>
-      </div>
-      {delegationsQuery.isLoading
-        ? "Loading delegations..."
-        : delegationsQuery.data && (
-            <div>
-              {astroquirksDelegation ? (
-                <div className="mt-8 bg-blue-2 bg-opacity-5 border-blue-2 border-opacity-30 border p-8 rounded space-y-4">
-                  <div className="text-xl">
-                    <strong>{`🎉 You delegate `}</strong>
-                    <strong className="text-orange-2">{`${formatUOSMO(
-                      astroquirksDelegation.balance.amount,
-                    )} ${astroquirksDelegation.balance.denom}`}</strong>
-                    <strong>{` with us!`}</strong>
-                  </div>
-                  <Button
-                    isLoading={delegateMutation.isLoading}
-                    onClick={() => delegateMutation.mutate(ASTROQUIRKS_ADDRESS)}
-                  >
-                    {"Delegate more"}
-                  </Button>
-                </div>
-              ) : (
-                <div className="mt-8 bg-blue-2 bg-opacity-5 border-blue-2 border-opacity-30 border text-xl p-8 rounded">
-                  <strong>{"You don't delegate with Astroquirks"}</strong>
-                  <button
-                    className="btn text-sm ml-4"
-                    onClick={() => delegateMutation.mutate(ASTROQUIRKS_ADDRESS)}
-                  >
-                    {"Start staking with us"}
-                  </button>
-                </div>
-              )}
-              <div className="mt-8">
-                {otherDelegations.length > 0 ? (
-                  <table className="w-full">
-                    <thead>
-                      <tr className="border-b border-opacity-20 border-blue-2">
-                        <th className="text-left">{"Validator"}</th>
-                        <th className="text-right">{"Amount"}</th>
-                        <th className="text-right"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {otherDelegations.map((delegation) => {
-                        return (
-                          <tr key={delegation.delegation.validator_address}>
-                            <td className="max-w-[300px] truncate p-2">
-                              {delegation.delegation.validator_address}
-                            </td>
-                            <td className="text-right p-2 whitespace-nowrap">
-                              {delegation.balance.amount} {delegation.balance.denom}
-                            </td>
-                            <td className="text-right">
-                              <button
-                                className="btn"
-                                disabled={redelegateMutation.isLoading}
-                                onClick={() => redelegateMutation.mutate(delegation)}
-                              >
-                                {"Redelegate"}
-                              </button>
-                            </td>
-                          </tr>
-                        );
-                      })}
-                    </tbody>
-                  </table>
-                ) : astroquirksDelegation ? (
-                  <div>
-                    <h2 className="font-alt opacity-70 text-2xl text-orange-2">
-                      {"No other delegations."}
-                    </h2>
-                    <p>{"Congratz, you are an Astroquirks maximalist."}</p>
-                  </div>
-                ) : null}
-              </div>
+      <div className="p-8 max-w-[800px] mx-auto">
+        <div className="bg-blue-2 bg-opacity-5 rounded shadow-md border border-blue-2 border-opacity-10 shadow-[rgba(0,0,0,0.1)]">
+          <div className="p-8">
+            <div className="flex items-center space-x-4">
+              <strong>{"Your address"}</strong>
+              <code className="px-1 rounded bg-blue-2 bg-opacity-10">{account.address}</code>
             </div>
-          )}
+          </div>
+          <hr className="opacity-10" />
+
+          {delegationsQuery.isLoading
+            ? "Loading delegations..."
+            : delegationsQuery.data && (
+                <>
+                  {astroquirksDelegation ? (
+                    <div className="p-8 space-y-4">
+                      <div className="text-xl">
+                        <strong>{`🎉 You delegate `}</strong>
+                        <strong className="text-orange-2">{`${formatUOSMO(
+                          astroquirksDelegation.balance.amount,
+                        )} ${astroquirksDelegation.balance.denom}`}</strong>
+                        <strong>{` with us!`}</strong>
+                      </div>
+                      {/*}
+                      <Button
+                        isLoading={delegateMutation.isLoading}
+                        onClick={() => delegateMutation.mutate(ASTROQUIRKS_ADDRESS)}
+                      >
+                        {"Delegate more"}
+                      </Button>
+                      {*/}
+                    </div>
+                  ) : (
+                    <div className="p-8">
+                      <strong>{"You don't delegate with Astroquirks"}</strong>
+                      {/*}
+                      <Button
+                        onClick={() => delegateMutation.mutate(ASTROQUIRKS_ADDRESS)}
+                      >
+                        {"Start staking with us"}
+                      </Button>
+                      {*/}
+                    </div>
+                  )}
+                  <hr className="opacity-10" />
+                  <div className="p-8">
+                    {otherDelegations.length > 0 ? (
+                      <table className="w-full">
+                        <thead>
+                          <tr className="border-b border-opacity-20 border-blue-2">
+                            <th className="text-left">{"Validator"}</th>
+                            <th className="text-right">{"Amount"}</th>
+                            <th className="text-right"></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {otherDelegations.map((delegation) => {
+                            return (
+                              <tr key={delegation.delegation.validator_address}>
+                                <td className="max-w-[300px] truncate p-2">
+                                  {delegation.delegation.validator_address}
+                                </td>
+                                <td className="text-right p-2 whitespace-nowrap">
+                                  {delegation.balance.amount} {delegation.balance.denom}
+                                </td>
+                                <td className="text-right">
+                                  <button
+                                    className="btn"
+                                    disabled={redelegateMutation.isLoading}
+                                    onClick={() => redelegateMutation.mutate(delegation)}
+                                  >
+                                    {"Redelegate"}
+                                  </button>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </table>
+                    ) : astroquirksDelegation ? (
+                      <div>
+                        <h2 className="font-alt opacity-70 text-2xl text-orange-2">
+                          {"No other delegations."}
+                        </h2>
+                        <p>{"Congratz, you are an Astroquirks maximalist."}</p>
+                      </div>
+                    ) : null}
+                  </div>
+                </>
+              )}
+        </div>
+      </div>
     </div>
   );
 };
@@ -222,37 +234,4 @@ const formatUOSMO = (uosmo: string) => {
   return BigNumber(uosmo).times(BigNumber(10).pow(-6)).toFixed(2);
 };
 
-const DAppWrapper = () => {
-  const wallet = useWallet();
-  const { data: account } = wallet;
-  const show = !!account;
-  return (
-    <motion.div
-      className={`${
-        show ? "" : "pointer-events-none"
-      } fixed top-[85px] left-0 right-0 bottom-0 p-8 flex flex-col`}
-      initial={false}
-      animate={show ? "visible" : "invisible"}
-      variants={{
-        visible: {
-          scale: 1,
-          opacity: 1,
-        },
-        invisible: {
-          opacity: 0,
-        },
-      }}
-    >
-      {show ? (
-        <>
-          <div className="fixed top-4 right-4">
-            <ConnectKeplr />
-          </div>
-          <DApp />
-        </>
-      ) : null}
-    </motion.div>
-  );
-};
-
-export default DAppWrapper;
+export default DApp;

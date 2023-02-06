@@ -54,11 +54,12 @@ a {
   @apply bg-blue-2 border border-blue-2 border-opacity-[0.1] font-bold rounded bg-opacity-10 shadow-md shadow-[rgba(0,0,0,0.1)];
 }
 
-.btn:not(:disabled) {
+.btn:not(:disabled):not(.disabled) {
   @apply hover:border-opacity-20 hover:bg-opacity-[0.15] active:bg-opacity-[0.1] hover:text-orange-1;
 }
 
-.btn:disabled {
+.btn:disabled,
+.btn.disabled {
   @apply opacity-50 cursor-not-allowed;
 }
 
