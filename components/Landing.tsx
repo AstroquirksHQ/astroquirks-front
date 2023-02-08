@@ -106,9 +106,36 @@ const Landing = () => {
             <NextAirdropCounter />
           </span>
         </div>
-        <div>
-          <span>{"Wanna be eligible? "}</span>
-          <strong>{"Stake with us! 😍"}</strong>
+        <div className="flex justify-between flex-col items-center justify-center">
+          <div className="mb-2">{"Wanna be eligible? "}</div>
+          <div className="mb-4">
+            <Image
+              className="inline mr-2 -mt-[4px]"
+              src="/img/osmo.svg"
+              alt="bell"
+              width={24}
+              height={24}
+            />
+            <strong>
+              <a href="http://stake.osmo.astroquirks.com" target="_blank" rel="noreferrer">
+                {"Stake your osmo with us!"}{" "}
+              </a>
+            </strong>
+          </div>
+          <div>
+            <Image
+              className="inline mr-2 -mt-[4px]"
+              src="/img/stars.webp"
+              alt="bell"
+              width={24}
+              height={24}
+            />
+            <strong>
+              <a href="http://stake.stars.astroquirks.com" target="_blank" rel="noreferrer">
+                {"Stake your stars with us!"}{" "}
+              </a>
+            </strong>
+          </div>
         </div>
       </div>
       <div>
