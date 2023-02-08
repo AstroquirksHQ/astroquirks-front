@@ -10,7 +10,7 @@ const Logo = () => {
           <span className="font-semibold">{"quirks"}</span>
         </div>
         <div className="uppercase text-blue-2 tracking-widest select-none opacity-60 text-[11px]">
-          {"Osmosis validator"}
+          {"Cosmos ecosystem validator"}
         </div>
       </div>
     </div>
