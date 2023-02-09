@@ -118,7 +118,7 @@ const Landing = () => {
             />
             <strong>
               <a href="http://stake.osmo.astroquirks.com" target="_blank" rel="noreferrer">
-                {"Stake your osmo with us!"}{" "}
+                {"Stake your $OSMO with us!"}{" "}
               </a>
             </strong>
           </div>
@@ -132,7 +132,7 @@ const Landing = () => {
             />
             <strong>
               <a href="http://stake.stars.astroquirks.com" target="_blank" rel="noreferrer">
-                {"Stake your stars with us!"}{" "}
+                {"Stake your $STARS with us!"}{" "}
               </a>
             </strong>
           </div>
