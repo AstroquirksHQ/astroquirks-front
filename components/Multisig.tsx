@@ -48,7 +48,10 @@ const Multisig = () => {
           >
             <Button
               key="create-multi"
-              onClick={() => setState({ ...state, status: "create-multisig" })}
+              onClick={async () => {
+                await new Promise((r) => setTimeout(r, 300));
+                setState({ ...state, status: "create-multisig" });
+              }}
               Icon={FiKey}
             >
               {"Create multisig"}

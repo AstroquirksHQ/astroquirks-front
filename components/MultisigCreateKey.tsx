@@ -43,9 +43,9 @@ const MultisigCreateKey = ({ onClose }: { onClose(): void }) => {
 
   return (
     <div className="space-y-4">
-      <div className="bg-violet-700 bg-opacity-20 rounded p-4 text-violet-300 border border-violet-400 border-opacity-10 shadow-md">
-        <h2 className="font-semibold text-lg text-violet-400 mb-2 space-x-2">
-          <span className="text-sm bg-violet-400 text-violet-900 px-1 rounded uppercase tracking-widest">
+      <div className="bg-violet-700 bg-opacity-20 rounded p-4 text-violet-500 border border-violet-500 border-opacity-10 shadow-md">
+        <h2 className="font-semibold text-lg text-violet-300 mb-2 space-x-2">
+          <span className="text-sm bg-violet-300 text-violet-900 px-1 rounded uppercase tracking-widest">
             {"Multisig"}
           </span>
           <span>{"Public keys & quorum configuration"}</span>
@@ -64,24 +64,22 @@ const MultisigCreateKey = ({ onClose }: { onClose(): void }) => {
               <span>{"Back"}</span>
             </button>
           </div>
-          <div className="p-8 space-y-8">
-            <div className="relative">
-              <AddressesCircle quorum={payload.quorum} slots={slots} onChange={setSlots} />
-              <div className="absolute bottom-4 right-4 overflow-hidden pt-4">
-                <AnimatePresence>
-                  {isValid && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 60 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 60 }}
-                    >
-                      <Button Icon={FiCheck} disabled={!isValid}>
-                        {"Review & create"}
-                      </Button>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+          <div className="p-8">
+            <AddressesCircle quorum={payload.quorum} slots={slots} onChange={setSlots} />
+            <div className="absolute top-0 right-4 overflow-hidden pt-4 pb-4">
+              <AnimatePresence>
+                {isValid && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -80 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -80 }}
+                  >
+                    <Button Icon={FiCheck} disabled={!isValid}>
+                      {"Review & create"}
+                    </Button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </div>
