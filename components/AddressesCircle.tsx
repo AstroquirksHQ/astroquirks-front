@@ -1,12 +1,9 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useCallback, useState } from "react";
+import { FormEventHandler, MutableRefObject, useCallback, useRef, useState } from "react";
 import { CgSpinnerTwoAlt } from "react-icons/cg";
-import { FiCheck, FiEdit3, FiMinus, FiPlus, FiUserCheck } from "react-icons/fi";
+import { FiCheck, FiEdit, FiMinus, FiPlus, FiUserCheck } from "react-icons/fi";
 
 import { genID } from "@/utils/id";
-
-import Card from "./Card";
-import TextInput from "./TextInput";
 
 export type Slot = {
   id: string;
@@ -20,6 +17,13 @@ export const genSlot = (address: string | null = null, name: string = ""): Slot 
   address,
 });
 
+export const isSlotValid = (slot: Slot): boolean =>
+  slot.address !== null && slot.address !== "" && slot.name !== "";
+
+export const isSlotHidden = (slot: Slot): boolean => slot.address === null;
+
+export const isSlotEmpty = (slot: Slot): boolean => slot.address === "" && slot.name === "";
+
 const ITEM_RADIUS = 60;
 const CIRCLE_RADIUS = 180;
 
@@ -32,6 +36,7 @@ const AddressesCircle = ({
   slots: Slot[];
   onChange: (v: Slot[]) => void;
 }) => {
+  const submitRef = useRef<(() => void) | null>(null);
   const [fakeAddLoading, setFakeAddLoading] = useState(false);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const filledSlots = slots.filter((s) => s.address !== null);
@@ -47,7 +52,7 @@ const AddressesCircle = ({
   );
 
   const clearSlot = (i: number) => {
-    const slotsCopy = [...slots];
+    let slotsCopy = [...slots];
     const slotCopy: Slot = genSlot();
     slotsCopy[i] = slotCopy;
     onChange(slotsCopy);
@@ -86,7 +91,7 @@ const AddressesCircle = ({
                       <span>{"out of"}</span>
                       <span className="text-4xl font-semibold">{filledSlots.length}</span>
                     </div>
-                    <div className="absolute top-full left-0 right-0 text-center mt-2 pb-2 overflow-hidden">
+                    <div className="absolute top-full left-0 right-0 text-center pt-2 pb-2 overflow-hidden">
                       <AnimatePresence>
                         {canAdd && (
                           <motion.button
@@ -139,53 +144,31 @@ const AddressesCircle = ({
                   key="edit"
                   className="rounded-full absolute z-10 top-0 left-0 right-0 bottom-0 flex items-center justify-center flex-col"
                   initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1, transition: { ease: "anticipate" } }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    transition: { ease: "anticipate", delay: 0.2 },
+                  }}
                   exit={{
                     opacity: 0,
                     scale: 0.8,
-                    transition: { opacity: { duration: 0.2 }, scale: { duration: 0.3 } },
+                    transition: {
+                      opacity: { duration: 0.2 },
+                      scale: { duration: 0.3 },
+                    },
                   }}
                 >
                   <div className="p-8 w-[350px] h-[300px] bg-blue-7 border-2 border-info-500 border-opacity-30 shadow-md rounded">
-                    <div className="space-y-4 text-info-300">
-                      <div className="space-y-2">
-                        <label htmlFor="name" className="opacity-50">
-                          {"Key name"}
-                        </label>
-                        <input
-                          type="text"
-                          value={activeSlot!.name}
-                          onChange={(e) => {
-                            const slot = activeSlot!;
-                            const v = e.target.value;
-                            const newSlot = { ...slot, name: v };
-                            const newSlots = [...slots];
-                            newSlots[activeIndex] = newSlot;
-                            onChange(newSlots);
-                          }}
-                          className="block rounded w-full p-2 outline-none bg-blue-5"
-                          autoFocus
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <label htmlFor="name" className="opacity-50">
-                          {"Address"}
-                        </label>
-                        <input
-                          type="text"
-                          value={activeSlot!.address || ""}
-                          onChange={(e) => {
-                            const slot = activeSlot!;
-                            const v = e.target.value;
-                            const newSlot: Slot = { ...slot, address: v };
-                            const newSlots = [...slots];
-                            newSlots[activeIndex] = newSlot;
-                            onChange(newSlots);
-                          }}
-                          className="block rounded w-full p-2 outline-none bg-blue-5"
-                        />
-                      </div>
-                    </div>
+                    <SlotForm
+                      slot={activeSlot!}
+                      onChange={(newSlot) => {
+                        const newSlots = [...slots];
+                        newSlots[activeIndex] = newSlot;
+                        onChange(newSlots);
+                        setActiveIndex(null);
+                      }}
+                      submitRef={submitRef}
+                    />
                   </div>
                 </motion.div>
               )}
@@ -199,21 +182,24 @@ const AddressesCircle = ({
                 const isValid = slot.name !== "";
                 const isStandBy = activeIndex !== null && activeIndex !== i;
                 const isActive = activeIndex === i;
+                const isEmpty = isSlotEmpty(slot);
                 const canDeleteItem = canDelete && i !== 0 && !isActive;
-                const canEditItem = isValid && !isActive;
+                const canEditItem = !isEmpty && !isActive;
                 return (
                   <motion.div
-                    key={i}
+                    key={slot.id}
                     initial={{ x, y, scale: 0 }}
                     animate={{
                       x: isActive ? ITEM_RADIUS + 40 : x,
                       y: isActive ? CIRCLE_RADIUS / 2 - ITEM_RADIUS + 40 : y,
-                      // x: isActive ? -ITEM_RADIUS : x,
-                      // y: isActive ? -CIRCLE_RADIUS - 20 : y,
                       scale: 1,
                       opacity: isStandBy ? 0 : 1,
                     }}
                     exit={{ scale: 0, opacity: 0 }}
+                    transition={{
+                      x: { ease: "backInOut", duration: 0.5 },
+                      y: { ease: "backInOut", duration: 0.5 },
+                    }}
                     className={`
                       group absolute rounded-full p-2 bg-blue-7 h-[120px] w-[120px] shadow-md shadow-[rgba(0,0,0,0.1)] flex items-center justify-center
                       border-2 border-opacity-20 border-blue-2
@@ -227,6 +213,7 @@ const AddressesCircle = ({
                       <AnimatePresence>
                         {canDeleteItem && (
                           <motion.div
+                            key="delete"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -243,6 +230,7 @@ const AddressesCircle = ({
                         )}
                         {canEditItem && (
                           <motion.div
+                            key="edit"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
@@ -253,14 +241,14 @@ const AddressesCircle = ({
                               className="absolute left-0 group-hover:visible invisible rounded-full p-2 bg-info-800 border border-blue-2 border-opacity-30 shadow-md text-info-200"
                               onClick={() => setActiveIndex(i)}
                             >
-                              <FiEdit3 />
+                              <FiEdit />
                             </button>
                           </motion.div>
                         )}
                       </AnimatePresence>
                     </div>
                     <div className="w-full h-full p-1 flex flex-col">
-                      {isValid && !isActive ? (
+                      {!isEmpty && !isActive ? (
                         <div className="leading-none text-sm text-center">
                           <div className="text-center text-info-700 pt-2">
                             <FiUserCheck className="inline mb-2" size={16} />
@@ -269,32 +257,35 @@ const AddressesCircle = ({
                             className="truncate font-semibold text-info-400 mb-1"
                             title={slot.name}
                           >
-                            {slot.name}
+                            {slot.name || "[no name]"}
                           </div>
                           <div
                             className="break-all text-info-600 line-clamp-2 text-xs leading-none"
                             title={slot.address}
                           >
-                            {slot.address}
+                            {slot.address || "[no address]"}
                           </div>
                         </div>
                       ) : (
                         <button
                           className="group bg-info-600 bg-opacity-10 border border-info-300 border-opacity-10 h-full w-full flex items-center justify-center rounded-full text-info-500 hover:bg-info-600 hover:bg-opacity-20 active:bg-opacity-30"
-                          onClick={() => (isActive ? setActiveIndex(null) : setActiveIndex(i))}
+                          onClick={() => {
+                            if (!isActive) {
+                              setActiveIndex(i);
+                              return;
+                            }
+                            if (submitRef.current) {
+                              submitRef.current();
+                            }
+                            setActiveIndex(null);
+                          }}
                         >
                           {isActive ? (
                             <>
                               <FiCheck size={24} className="opacity-50 group-hover:opacity-100" />
                             </>
                           ) : (
-                            <>
-                              <FiEdit3
-                                size={24}
-                                className="opacity-50 group-hover:opacity-100 mr-2"
-                              />
-                              <span>{"Fill"}</span>
-                            </>
+                            <FiEdit size={24} className="opacity-50 group-hover:opacity-100" />
                           )}
                         </button>
                       )}
@@ -307,6 +298,64 @@ const AddressesCircle = ({
         </div>
       </div>
     </motion.div>
+  );
+};
+
+const SlotForm = ({
+  slot,
+  onChange,
+  submitRef,
+}: {
+  slot: Slot;
+  onChange: (s: Slot) => void;
+  submitRef: MutableRefObject<(() => void) | null>;
+}) => {
+  const [copy, setCopy] = useState<Slot>(slot);
+  submitRef.current = () => onChange(copy);
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    onChange(copy);
+  };
+  return (
+    <form onSubmit={handleSubmit}>
+      <input type="submit" className="hidden" />
+      <div className="space-y-4 text-info-300">
+        <div className="space-y-2">
+          <label htmlFor="name" className="opacity-50">
+            {"Key name"}
+          </label>
+          <input
+            type="text"
+            value={copy.name}
+            placeholder="e.g: mario"
+            onChange={(e) => {
+              const v = e.target.value;
+              const newSlot = { ...copy, name: v };
+              setCopy(newSlot);
+            }}
+            className="text-input-simple"
+            autoFocus
+          />
+        </div>
+        <div className="space-y-2">
+          <label htmlFor="name" className="opacity-50">
+            {"Address"}
+          </label>
+          <input
+            type="text"
+            placeholder="e.g: osmo1m0vk7kp..."
+            value={copy.address || ""}
+            onChange={(e) => {
+              const v = e.target.value;
+              const newSlot: Slot = { ...copy, address: v };
+              setCopy(newSlot);
+            }}
+            className="text-input-simple"
+          />
+        </div>
+      </div>
+    </form>
   );
 };
 

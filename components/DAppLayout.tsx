@@ -40,15 +40,15 @@ const DAppLayout = ({ children, account }: { children: ReactNode; account: Walle
         </div>
       </div>
       <div className="flex-grow">
-        <div className="px-8 max-w-[870px] mx-auto">{children}</div>
-      </div>
-      <div className="flex justify-start ml-8 mt-8">
-        <div className="bg-warning-700 bg-opacity-10 p-4 rounded text-warning-300">
-          <div className="mb-2">
-            {"🚧"}
-            <strong className="text-warning-200 ml-2">{"Work in progress"}</strong>
+        <div className="px-8 max-w-[870px] mx-auto">
+          <div className="bg-warning-700 bg-opacity-10 p-4 rounded text-warning-300 border border-warning-400 border-opacity-20 shadow-md mb-4">
+            <h2 className="font-semibold text-lg text-warning-200 mb-2 space-x-2">
+              {"🚧"}
+              <span className="ml-2">{"This is a work in progress"}</span>
+            </h2>
+            <p>{"Expect instabilities & bugs. Use at your own risks."}</p>
           </div>
-          <div className="text-sm">{"Expect instabilities & bugs. Use at your own risks."}</div>
+          {children}
         </div>
       </div>
     </div>

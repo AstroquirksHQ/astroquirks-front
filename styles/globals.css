@@ -80,3 +80,9 @@ a {
 .text-input:disabled {
   @apply cursor-not-allowed opacity-70;
 }
+
+.text-input-simple {
+  @apply block rounded w-full p-2 outline-none bg-blue-5;
+  @apply placeholder:text-white placeholder:text-opacity-30;
+  @apply focus:bg-blue-5 outline-none focus:ring focus:ring-info-500 focus:ring-opacity-90;
+}
