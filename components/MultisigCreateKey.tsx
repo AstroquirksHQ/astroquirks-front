@@ -32,16 +32,14 @@ const MultisigCreateKey = ({ onClose }: { onClose(): void }) => {
   });
   const [slots, setSlots] = useState<Slot[]>([
     genSlot(account?.address!, account?.username),
+    // put an "blank" slot directly from the beginning
     genSlot(""),
+    // rest of the slots, as empty
     genSlot(),
     genSlot(),
     genSlot(),
     genSlot(),
   ]);
-
-  const handleSubmit = () => {
-    console.log(slots);
-  };
 
   const filledSlots = useMemo(() => {
     return slots.filter((s) => !isSlotHidden(s));
@@ -50,6 +48,10 @@ const MultisigCreateKey = ({ onClose }: { onClose(): void }) => {
   const isValid = useMemo(() => {
     return filledSlots.every(isSlotValid) && filledSlots.length > 1;
   }, [filledSlots]);
+
+  const handleSubmit = () => {
+    console.log(filledSlots);
+  };
 
   return (
     <div className="space-y-4">
@@ -75,7 +77,9 @@ const MultisigCreateKey = ({ onClose }: { onClose(): void }) => {
                   exit={{ opacity: 0, height: 0, transition: { height: { delay: 0.3 } } }}
                 >
                   <div className="flex justify-end">
-                    <Button disabled={!isValid}>{"Continue"}</Button>
+                    <Button disabled={!isValid} onClick={handleSubmit}>
+                      {"Continue"}
+                    </Button>
                   </div>
                 </motion.div>
               )}
