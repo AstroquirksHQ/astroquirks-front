@@ -86,10 +86,15 @@ const AddressesCircle = ({
                 >
                   <div className="-mt-4 opacity-50 text-sm">{"Quorum"}</div>
                   <div className="relative">
-                    <div className="items-center justify-center inline-flex space-x-2">
-                      <span className="text-4xl font-semibold text-orange-1">{quorum}</span>
-                      <span>{"out of"}</span>
-                      <span className="text-4xl font-semibold">{filledSlots.length}</span>
+                    <div className="items-center justify-center inline-flex">
+                      <button
+                        onClick={() => alert("ok")}
+                        className="text-4xl font-semibold text-orange-1 px-2 py-1 rounded bg-blue-2 bg-opacity-5 border border-dashed border-orange-2 border-opacity-30"
+                      >
+                        {quorum}
+                      </button>
+                      <span className="px-2">{"out of"}</span>
+                      <span className="text-4xl font-semibold px-2 py-1">{filledSlots.length}</span>
                     </div>
                     <div className="absolute top-full left-0 right-0 text-center pt-2 pb-2 overflow-hidden">
                       <AnimatePresence>

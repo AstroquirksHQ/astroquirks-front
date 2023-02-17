@@ -86,3 +86,8 @@ a {
   @apply placeholder:text-white placeholder:text-opacity-30;
   @apply focus:bg-blue-5 outline-none focus:ring focus:ring-info-500 focus:ring-opacity-90;
 }
+
+.min {
+  width: 1%;
+  white-space: nowrap;
+}

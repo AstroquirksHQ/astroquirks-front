@@ -3,6 +3,9 @@ import { AnimatePresence, motion } from "framer-motion";
 import invariant from "invariant";
 import { useMemo, useState } from "react";
 import { FiArrowLeft, FiCheck, FiChevronRight } from "react-icons/fi";
+import { useMutation, useQueryClient } from "react-query";
+
+import multisigClient from "@/api/multisigClient";
 
 import AddressesCircle, {
   genSlot,
@@ -20,9 +23,23 @@ type CreateKeyPayload = {
   operators: Array<string | null>;
 };
 
+const createMultisig = async (payload: CreateKeyPayload) => {
+  const cleanedOperators = payload.operators.filter(Boolean);
+  await multisigClient.post("/multisigs", {
+    ...payload,
+    operators: cleanedOperators,
+  });
+};
+
 const MultisigCreateKey = ({ onClose }: { onClose(): void }) => {
   const wallet = useWallet();
   const { data: account } = wallet;
+  const queryClient = useQueryClient();
+  const createMultisigMutation = useMutation(createMultisig, {
+    onSuccess: () => {
+      queryClient.invalidateQueries(["multisigs"]);
+    },
+  });
   invariant(account, "No account");
 
   const [payload, setPayload] = useState<CreateKeyPayload>({
@@ -50,7 +67,7 @@ const MultisigCreateKey = ({ onClose }: { onClose(): void }) => {
   }, [filledSlots]);
 
   const handleSubmit = () => {
-    console.log(filledSlots);
+    createMultisigMutation.mutate(payload);
   };
 
   return (

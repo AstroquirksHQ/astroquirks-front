@@ -2,7 +2,7 @@ import { useWallet } from "@cosmos-kit/react";
 import { useEffect } from "react";
 
 import DAppLanding from "@/components/DAppLanding";
-import Multisig from "@/components/Multisig";
+import MultisigComponent from "@/components/Multisig";
 import WalletProvider from "@/components/WalletProvider";
 
 const MultisigWrapper = () => {
@@ -14,7 +14,7 @@ const MultisigWrapper = () => {
     setCurrentChain("osmosis");
   }, [setCurrentChain]);
 
-  return account ? <Multisig /> : <DAppLanding />;
+  return account ? <MultisigComponent /> : <DAppLanding />;
 };
 
 export default () => (

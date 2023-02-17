@@ -1,7 +1,7 @@
 import { useWallet } from "@cosmos-kit/react";
 
 import ConnectKeplr from "../components/ConnectKeplr";
-import Multisig from "../components/Multisig";
+import MultisigComponent from "../components/Multisig";
 import WalletProvider from "../components/WalletProvider";
 
 const MultisigLanding = () => {
@@ -18,7 +18,7 @@ const MultisigLanding = () => {
 const MultisigWrapper = () => {
   const wallet = useWallet();
   const { data: account } = wallet;
-  return account ? <Multisig /> : <MultisigLanding />;
+  return account ? <MultisigComponent /> : <MultisigLanding />;
 };
 
 export default () => (
