@@ -3,6 +3,7 @@ import { DetailedHTMLProps, ImgHTMLAttributes } from "react";
 const iconsByTicker: Record<string, string> = {
   UMEE: "https://cdn.jsdelivr.net/gh/cosmos/chain-registry/umee/images/umee.png",
   STARS: "https://cdn.jsdelivr.net/gh/cosmos/chain-registry/stargaze/images/stars.png",
+  MARS: "https://cdn.jsdelivr.net/gh/cosmos/chain-registry/mars/images/mars-token.png",
 };
 
 type Props = DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
