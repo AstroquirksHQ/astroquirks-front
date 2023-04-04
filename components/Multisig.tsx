@@ -20,20 +20,19 @@ type State = {
 };
 
 type Operator = {
-  id: number
-  address: string,
-  created_on: string,
-}
+  id: number;
+  address: string;
+  created_on: string;
+};
 
 type Multisig = {
-  id: number,
-  created_on: string,
-  updated_on: string,
-  multisig_address: string,
-  operators: Operator[]
-  quorum: number,
-}
-
+  id: number;
+  created_on: string;
+  updated_on: string;
+  multisig_address: string;
+  operators: Operator[];
+  quorum: number;
+};
 
 const MultisigComponent = () => {
   const [state, setState] = useState<State>({
@@ -45,7 +44,11 @@ const MultisigComponent = () => {
   const { data: account } = wallet;
   invariant(account, "No account");
 
-  const multisigsQuery = useQuery("multisigs", () => multisigClient.get<{ multisigs: Multisig[] }>(`/multisigs?operator_address=${account.address}`).then(d => d.data));
+  const multisigsQuery = useQuery("multisigs", () =>
+    multisigClient
+      .get<{ multisigs: Multisig[] }>(`/multisigs?operator_address=${account.address}`)
+      .then((d) => d.data),
+  );
 
   return (
     <DAppLayout account={account}>
@@ -82,14 +85,12 @@ const MultisigComponent = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {multisigsQuery.data.multisigs.map(multisig => (
+                    {multisigsQuery.data.multisigs.map((multisig) => (
                       <tr key={multisig.id} className="bg-blue-2 bg-opacity-5">
                         <td className="text-left p-4">{multisig.multisig_address}</td>
                         <td className="text-right p-4">{`${multisig.quorum}/${multisig.operators.length}`}</td>
                         <td className="text-center p-4 min">
-                          <Button>
-                            {"View"}
-                          </Button>
+                          <Button>{"View"}</Button>
                         </td>
                       </tr>
                     ))}
